@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+	font-family: font-book;
+	src: url("./font/CircularStd-Book.otf");
+}
+
+@font-face {
+	font-family: font-medium;
+	src: url("./font/CircularStd-Medium.otf");
+}
+
+@font-face {
+	font-family: font-bold;
+	src: url("./font/CircularStd-Bold.otf");
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html {
+	font-size: 62.5%;
+}
+
+body {
+	font-size: 1.6rem;
+	font-family: font-medium;
+	background-color: #000000;
+	color: #fefefe;
+}
+
+#root {
+	height: 100dvh;
+}
