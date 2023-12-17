@@ -1,6 +1,6 @@
-# Spotify clone
+# Spotify Clone
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is an attempt to replicate the popular music streaming platform Spotify using the React JavaScript library. It aims to provide a user-friendly interface for discovering, listening to, and managing music, mirroring Spotify's core functionalities.
 
 Currently, two official plugins are available:
 
