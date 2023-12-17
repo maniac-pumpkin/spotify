@@ -2,29 +2,19 @@
 
 This project is an attempt to replicate the popular music streaming platform Spotify using the React JavaScript library. It aims to provide a user-friendly interface for discovering, listening to, and managing music, mirroring Spotify's core functionalities.
 
-Currently, two official plugins are available:
+## Technologies
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Routing: Wouter is a lightweight React routing library that provides an easy-to-use and flexible way to handle navigation in a React application.
+2. Remote state management: React Query is a library for managing and caching server state in React applications. It provides a simple and intuitive API for fetching, caching, and updating data from APIs and other data sources.
+3. UI state management: Context API is a feature in React that allows data to be passed down through the component tree without having to pass props manually at every level.
+4. Styling: Tailwind CSS is a utility-first CSS framework that provides a set of pre-defined classes to style HTML elements.
 
-## Expanding the ESLint configuration
+## Cloning the repo
+'''
+git clone https://github.com/maniac-pumpkin/spotify.git
+'''
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-	// other rules...
-	parserOptions: {
-		ecmaVersion: "latest",
-		sourceType: "module",
-		project: ["./tsconfig.json", "./tsconfig.node.json"],
-		tsconfigRootDir: __dirname,
-	},
-};
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Install packages
+'''
+npm i
+'''
