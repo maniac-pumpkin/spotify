@@ -1,3 +1,9 @@
+import PageTitle from "../components/PageTitle";
+
 export default function LikedSongs() {
-	return <div>LikedSongs</div>;
+  return (
+    <div>
+      <PageTitle title="Liked songs" />
+    </div>
+  );
 }

@@ -2,7 +2,7 @@ import Button from "./Button";
 
 function BottomPreview() {
   return (
-    <section className="flex h-8 items-center justify-between gap-1 bg-pureBlack">
+    <section className="flex h-8 items-center justify-between gap-1">
       <div>
         <h3 className="mb-1 font-bold text-md md:text-lg">
           Preview of Spotify

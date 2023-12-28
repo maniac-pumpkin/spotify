@@ -71,8 +71,12 @@ function SongPreview({ src, songName, artist, type }: TSongPreview) {
           </Button>
         </div>
         <div className="mt-1">
-          <h3 className="mb-1 font-bold text-xsm">{songName}</h3>
-          <figcaption className="text-tn text-silverGray">{artist}</figcaption>
+          <h3 className="mb-1 font-bold text-xsm md:text-sm lg:text-md">
+            {songName}
+          </h3>
+          <figcaption className="text-tn text-silverGray md:text-xsm lg:text-sm">
+            {artist}
+          </figcaption>
         </div>
       </figure>
     );

@@ -1,3 +1,9 @@
+import PageTitle from "../components/PageTitle";
+
 export default function Search() {
-	return <div>Search</div>;
+  return (
+    <div>
+      <PageTitle title="Search" />
+    </div>
+  );
 }

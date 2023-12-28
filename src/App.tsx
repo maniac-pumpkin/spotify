@@ -1,6 +1,7 @@
 import { Suspense, lazy } from "react";
-import { Route } from "wouter";
+import { Route, useLocation } from "wouter";
 import isMobile from "./utils/isMobile";
+import "./styles/custom.css";
 
 const Home = lazy(() => import("./pages/Home"));
 const Search = lazy(() => import("./pages/Search"));
@@ -25,17 +26,23 @@ import BottomPreview from "./components/BottomPreview";
 // TODO: work on making reusable buttons
 // TODO: make a bottom preview
 // TODO: song preview mini and fullCover
-TODO: make the media controller
-TODO: liked songs
+// TODO: make the media controller
+// TODO: liked songs
+// TODO: homepage gradient bg
+// TODO: grid layout for homepage
+// TODO: slider component
 TODO: liked songs page
-TODO: homepage gradient bg
-TODO: grid layout for homepage
-TODO: slider component
 */
 
 export default function App() {
+  const [location] = useLocation();
+
   return (
-    <div className="relative h-screen">
+    <div
+      className={`relative min-h-screen ${
+        location === "/" ? "bg-greenGradient" : "bg-charcoalBlack"
+      }`}
+    >
       <Header>
         {isMobile() ? <NavLinks /> : <NavButtons />}
         <UserButtons />
