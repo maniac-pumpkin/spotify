@@ -17,11 +17,12 @@ import isMobile from "../utils/isMobile";
 
 function MediaController() {
   const [volume, setVolume] = useState(100);
+  const itIsMobile = isMobile();
 
   return (
-    <section className="flex h-8 w-full items-center justify-between">
-      <SongPreview type={isMobile() ? "superMini" : "mini"} />
-      {isMobile() && (
+    <section className="flex w-full items-center justify-between">
+      <SongPreview type={itIsMobile ? "superMini" : "mini"} />
+      {itIsMobile && (
         <div className="flex items-center gap-2">
           <Button shape="transparent">
             <RepeatIcon size={20} />
@@ -39,8 +40,8 @@ function MediaController() {
           </div>
         </div>
       )}
-      {!isMobile() && (
-        <div className="flex flex-col items-center gap-2">
+      {!itIsMobile && (
+        <div className="flex flex-col items-center gap-1">
           <div className="flex items-center gap-2">
             <Button shape="transparent">
               <BackwardIcon size={30} />
@@ -52,11 +53,10 @@ function MediaController() {
               <ForwardIcon size={30} />
             </Button>
           </div>
-
           <RangeSlider />
         </div>
       )}
-      {!isMobile() && (
+      {!itIsMobile && (
         <div className="flex items-center gap-2">
           <Button shape="transparent">
             <RepeatIcon size={20} />

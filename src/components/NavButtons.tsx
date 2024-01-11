@@ -15,10 +15,10 @@ function NavButtons() {
   return (
     <div className="flex items-center gap-3">
       <Button shape="circle" onClick={stepBack}>
-        <ArrowLeftIcon size={40} />
+        <ArrowLeftIcon className="fill-pureBlack" size={40} />
       </Button>
       <Button shape="circle" onClick={stepForward}>
-        <ArrowRightIcon size={40} />
+        <ArrowRightIcon className="fill-pureBlack" size={40} />
       </Button>
     </div>
   );

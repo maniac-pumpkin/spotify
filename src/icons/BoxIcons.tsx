@@ -1,69 +1,80 @@
 const defaultSize = 24;
+const defaultColor = "#9C9C9C";
 
-export function LoaderCircleIcon({ size = defaultSize }) {
+export type Ticon = {
+  size?: number;
+  className?: string;
+};
+
+export function LoaderCircleIcon({ className, size = defaultSize }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      className="fill-green"
+      fill={defaultColor}
+      className={`transition ${className}`}
     >
       <path d="M2 11h5v2H2zm15 0h5v2h-5zm-6 6h2v5h-2zm0-15h2v5h-2zM4.222 5.636l1.414-1.414 3.536 3.536-1.414 1.414zm15.556 12.728-1.414 1.414-3.536-3.536 1.414-1.414zm-12.02-3.536 1.414 1.414-3.536 3.536-1.414-1.414zm7.07-7.071 3.536-3.535 1.414 1.415-3.536 3.535z"></path>
     </svg>
   );
 }
 
-export function HomeIcon({ size = defaultSize }) {
+export function HomeIcon({ className, size = defaultSize }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      className="fill-pureBlack"
+      fill={defaultColor}
+      className={`transition ${className}`}
     >
       <path d="m21.743 12.331-9-10c-.379-.422-1.107-.422-1.486 0l-9 10a.998.998 0 0 0-.17 1.076c.16.361.518.593.913.593h2v7a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-4h4v4a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-7h2a.998.998 0 0 0 .743-1.669z"></path>
     </svg>
   );
 }
 
-export function SearchIcon({ size = defaultSize }) {
+export function SearchIcon({ className, size = defaultSize }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      className="fill-pureBlack"
+      fill={defaultColor}
+      className={`transition ${className}`}
     >
       <path d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"></path>
     </svg>
   );
 }
 
-export function PlayIcon({ size = defaultSize }) {
+export function PlayIcon({ className, size = defaultSize }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      className="fill-pureBlack"
+      fill={defaultColor}
+      className={`transition ${className}`}
     >
       <path d="M7 6v12l10-6z"></path>
     </svg>
   );
 }
 
-export function PlaylistIcon({ size = defaultSize }) {
+export function PlaylistIcon({ className, size = defaultSize }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      className="fill-silverGray"
+      fill={defaultColor}
+      className={`transition ${className}`}
     >
       <path d="M13 16.493C13 18.427 14.573 20 16.507 20s3.507-1.573 3.507-3.507c0-.177-.027-.347-.053-.517H20V6h2V4h-3a1 1 0 0 0-1 1v8.333a3.465 3.465 0 0 0-1.493-.346A3.51 3.51 0 0 0 13 16.493zM2 5h14v2H2z"></path>
       <path d="M2 9h14v2H2zm0 4h9v2H2zm0 4h9v2H2z"></path>
@@ -71,230 +82,240 @@ export function PlaylistIcon({ size = defaultSize }) {
   );
 }
 
-export function PlusIcon({ size = defaultSize }) {
+export function PlusIcon({ className, size = defaultSize }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      className="fill-pureBlack"
+      fill={defaultColor}
+      className={`transition ${className}`}
     >
       <path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"></path>
     </svg>
   );
 }
 
-export function ArrowRightIcon({ size = defaultSize }) {
+export function ArrowRightIcon({ className, size = defaultSize }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      className="fill-pureBlack"
+      fill={defaultColor}
+      className={`transition ${className}`}
     >
       <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
     </svg>
   );
 }
 
-export function ArrowLeftIcon({ size = defaultSize }) {
+export function ArrowLeftIcon({ className, size = defaultSize }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      className="fill-pureBlack"
+      fill={defaultColor}
+      className={`transition ${className}`}
     >
       <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path>
     </svg>
   );
 }
 
-export function HeartFilledIcon({
-  className,
-  size = defaultSize,
-}: {
-  className?: string;
-  size?: number;
-}) {
+export function HeartFilledIcon({ className, size = defaultSize }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      className={`fill-green ${className}`}
+      fill={defaultColor}
+      className={`transition ${className}`}
     >
       <path d="M20.205 4.791a5.938 5.938 0 0 0-4.209-1.754A5.906 5.906 0 0 0 12 4.595a5.904 5.904 0 0 0-3.996-1.558 5.942 5.942 0 0 0-4.213 1.758c-2.353 2.363-2.352 6.059.002 8.412L12 21.414l8.207-8.207c2.354-2.353 2.355-6.049-.002-8.416z"></path>
     </svg>
   );
 }
 
-export function HeartOutlinedIcon({ size = defaultSize }) {
+export function HeartOutlinedIcon({ className, size = defaultSize }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      className="fill-green"
+      fill={defaultColor}
+      className={`transition ${className}`}
     >
       <path d="M12 4.595a5.904 5.904 0 0 0-3.996-1.558 5.942 5.942 0 0 0-4.213 1.758c-2.353 2.363-2.352 6.059.002 8.412l7.332 7.332c.17.299.498.492.875.492a.99.99 0 0 0 .792-.409l7.415-7.415c2.354-2.354 2.354-6.049-.002-8.416a5.938 5.938 0 0 0-4.209-1.754A5.906 5.906 0 0 0 12 4.595zm6.791 1.61c1.563 1.571 1.564 4.025.002 5.588L12 18.586l-6.793-6.793c-1.562-1.563-1.561-4.017-.002-5.584.76-.756 1.754-1.172 2.799-1.172s2.035.416 2.789 1.17l.5.5a.999.999 0 0 0 1.414 0l.5-.5c1.512-1.509 4.074-1.505 5.584-.002z"></path>
     </svg>
   );
 }
 
-export function PauseIcon({ size = defaultSize }) {
+export function PauseIcon({ className, size = defaultSize }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      className="fill-pureBlack"
+      fill={defaultColor}
+      className={`transition ${className}`}
     >
       <path d="M8 7h3v10H8zm5 0h3v10h-3z"></path>
     </svg>
   );
 }
 
-export function BackwardIcon({ size = defaultSize }) {
+export function BackwardIcon({ className, size = defaultSize }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      className="fill-silverGray hover:fill-pureWhite"
+      fill={defaultColor}
+      className={`transition hover:fill-pureWhite ${className}`}
     >
       <path d="m16 7-7 5 7 5zm-7 5V7H7v10h2z"></path>
     </svg>
   );
 }
 
-export function ForwardIcon({ size = defaultSize }) {
+export function ForwardIcon({ className, size = defaultSize }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      className="fill-silverGray hover:fill-pureWhite"
+      fill={defaultColor}
+      className={`transition hover:fill-pureWhite ${className}`}
     >
       <path d="M7 7v10l7-5zm9 10V7h-2v10z"></path>
     </svg>
   );
 }
 
-export function UserIcon({ size = defaultSize }) {
+export function UserIcon({ className, size = defaultSize }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      className="fill-pureBlack"
+      fill={defaultColor}
+      className={`transition ${className}`}
     >
       <path d="M7.5 6.5C7.5 8.981 9.519 11 12 11s4.5-2.019 4.5-4.5S14.481 2 12 2 7.5 4.019 7.5 6.5zM20 21h1v-1c0-3.859-3.141-7-7-7h-4c-3.86 0-7 3.141-7 7v1h17z"></path>
     </svg>
   );
 }
 
-export function CloseIcon({ size = defaultSize }) {
+export function CloseIcon({ className, size = defaultSize }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      className="fill-silverGray hover:fill-pureWhite"
+      fill={defaultColor}
+      className={`transition hover:fill-pureWhite ${className}`}
     >
       <path d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"></path>
     </svg>
   );
 }
 
-export function RepeatIcon({ size = defaultSize }) {
+export function RepeatIcon({ className, size = defaultSize }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      className="fill-silverGray hover:fill-pureWhite"
+      fill={defaultColor}
+      className={`transition hover:fill-pureWhite ${className}`}
     >
       <path d="M21 6h-5v2h4v9H4V8h5v3l5-4-5-4v3H3a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1z"></path>
     </svg>
   );
 }
 
-export function FullScreenIcon({ size = defaultSize }) {
+export function FullScreenIcon({ className, size = defaultSize }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      className="fill-silverGray hover:fill-pureWhite"
+      fill={defaultColor}
+      className={`transition hover:fill-pureWhite ${className}`}
     >
       <path d="M5 5h5V3H3v7h2zm5 14H5v-5H3v7h7zm11-5h-2v5h-5v2h7zm-2-4h2V3h-7v2h5z"></path>
     </svg>
   );
 }
 
-export function ExitFullScreenIcon({ size = defaultSize }) {
+export function ExitFullScreenIcon({ className, size = defaultSize }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      className="fill-silverGray hover:fill-pureWhite"
+      fill={defaultColor}
+      className={`transition hover:fill-pureWhite ${className}`}
     >
       <path d="M10 4H8v4H4v2h6zM8 20h2v-6H4v2h4zm12-6h-6v6h2v-4h4zm0-6h-4V4h-2v6h6z"></path>
     </svg>
   );
 }
 
-export function VolumeOffIcon({ size = defaultSize }) {
+export function VolumeOffIcon({ className, size = defaultSize }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      className="fill-silverGray hover:fill-pureWhite"
+      fill={defaultColor}
+      className={`transition hover:fill-pureWhite ${className}`}
     >
       <path d="m21.707 20.293-2.023-2.023A9.566 9.566 0 0 0 21.999 12c0-4.091-2.472-7.453-5.999-9v2c2.387 1.386 3.999 4.047 3.999 7a8.113 8.113 0 0 1-1.672 4.913l-1.285-1.285C17.644 14.536 18 13.19 18 12c0-1.771-.775-3.9-2-5v7.586l-2-2V4a1 1 0 0 0-1.554-.832L7.727 6.313l-4.02-4.02-1.414 1.414 18 18 1.414-1.414zM12 5.868v4.718L9.169 7.755 12 5.868zM4 17h2.697l5.748 3.832a1.004 1.004 0 0 0 1.027.05A1 1 0 0 0 14 20v-1.879l-2-2v2.011l-4.445-2.964c-.025-.017-.056-.02-.082-.033a.986.986 0 0 0-.382-.116C7.059 15.016 7.032 15 7 15H4V9h.879L3.102 7.223A1.995 1.995 0 0 0 2 9v6c0 1.103.897 2 2 2z"></path>
     </svg>
   );
 }
 
-export function VolumeLowIcon({ size = defaultSize }) {
+export function VolumeLowIcon({ className, size = defaultSize }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      className="fill-silverGray hover:fill-pureWhite"
+      fill={defaultColor}
+      className={`transition hover:fill-pureWhite ${className}`}
     >
       <path d="M4 17h2.697l5.748 3.832a1.004 1.004 0 0 0 1.027.05A1 1 0 0 0 14 20V4a1 1 0 0 0-1.554-.832L6.697 7H4c-1.103 0-2 .897-2 2v6c0 1.103.897 2 2 2zm0-8h3c.033 0 .061-.016.093-.019a1.027 1.027 0 0 0 .379-.116c.026-.014.057-.017.082-.033L12 5.868v12.264l-4.445-2.964c-.025-.018-.056-.02-.082-.033a.977.977 0 0 0-.382-.116C7.059 15.016 7.032 15 7 15H4V9zm12-2v10c1.225-1.1 2-3.229 2-5s-.775-3.9-2-5z"></path>
     </svg>
   );
 }
 
-export function VolumeFullIcon({ size = defaultSize }) {
+export function VolumeFullIcon({ className, size = defaultSize }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      className="fill-silverGray hover:fill-pureWhite"
+      fill={defaultColor}
+      className={`transition hover:fill-pureWhite ${className}`}
     >
       <path d="M16 21c3.527-1.547 5.999-4.909 5.999-9S19.527 4.547 16 3v2c2.387 1.386 3.999 4.047 3.999 7S18.387 17.614 16 19v2z"></path>
       <path d="M16 7v10c1.225-1.1 2-3.229 2-5s-.775-3.9-2-5zM4 17h2.697l5.748 3.832a1.004 1.004 0 0 0 1.027.05A1 1 0 0 0 14 20V4a1 1 0 0 0-1.554-.832L6.697 7H4c-1.103 0-2 .897-2 2v6c0 1.103.897 2 2 2zm0-8h3c.033 0 .061-.016.093-.019a1.027 1.027 0 0 0 .38-.116c.026-.015.057-.017.082-.033L12 5.868v12.264l-4.445-2.964c-.025-.017-.056-.02-.082-.033a.986.986 0 0 0-.382-.116C7.059 15.016 7.032 15 7 15H4V9z"></path>

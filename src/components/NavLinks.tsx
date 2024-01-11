@@ -7,12 +7,12 @@ function NavLinks() {
     <nav className="flex items-center gap-3">
       <Link to="/">
         <Button shape="square">
-          <HomeIcon size={16} />
+          <HomeIcon className="fill-pureBlack" size={16} />
         </Button>
       </Link>
       <Link to="/search">
         <Button shape="square">
-          <SearchIcon size={16} />
+          <SearchIcon className="fill-pureBlack" size={16} />
         </Button>
       </Link>
     </nav>

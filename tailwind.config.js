@@ -52,6 +52,7 @@ export default {
           const rem = parseFloat((i * 0.1).toFixed(1));
           values[rem] = `${rem}rem`;
         }
+        values["screen"] = "100dvh";
         return values;
       },
       minHeight: {
@@ -88,9 +89,9 @@ export default {
         "spin-slow": "spin 3s linear infinite",
       },
       backgroundImage: {
-        greenGradient: "linear-gradient(180deg, #26BC57 -30.4%, #171717 37.7%)",
+        greenGradient: "linear-gradient(180deg, #26BC57 -30.4%, #171717 50%)",
         purpleGradient:
-          "radial-gradient(231.5% 188.27% at 18.75% 18.13%, #4100F5 0%, rgba(193, 237, 216, 0.00) 100%)",
+          "radial-gradient(3664.18% 249.26% at 10% 10.71%, #4100F5 0%, #C1EDD8 100%)",
       },
     },
   },

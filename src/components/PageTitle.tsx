@@ -1,10 +1,15 @@
 type TpageTitle = {
   title: string;
+  noSpace?: boolean;
 };
 
-function PageTitle({ title }: TpageTitle) {
+function PageTitle({ title, noSpace }: TpageTitle) {
   return (
-    <h2 className="mb-4 mt-4 font-bold text-lg md:mt-0 md:text-xl lg:text-2xl">
+    <h2
+      className={`font-bold text-lg md:text-xl lg:text-2xl ${
+        !noSpace && "my-4"
+      }`}
+    >
       {title}
     </h2>
   );

@@ -10,7 +10,7 @@ type TSongPreview = {
 };
 
 function SongPreview({ src, songName, artist, type }: TSongPreview) {
-  const [hover, setHover] = useState(true);
+  const [hover, setHover] = useState(false);
 
   src =
     "https://cdn11.bigcommerce.com/s-1xa2dhlu0a/images/stencil/1280x1280/products/83262/84267/LDE9764__24164.1657985409.jpg?c=1";
@@ -34,7 +34,7 @@ function SongPreview({ src, songName, artist, type }: TSongPreview) {
 
   if (type === "mini")
     return (
-      <figure className="flex items-center gap-2">
+      <figure className="flex cursor-pointer items-center gap-2">
         <img
           src={src}
           alt={songName}
@@ -50,7 +50,7 @@ function SongPreview({ src, songName, artist, type }: TSongPreview) {
   if (type === "fullCover")
     return (
       <figure
-        className="w-fit rounded-md bg-gunMetalBlack p-4 transition hover:bg-neroBlack"
+        className="w-fit rounded-md bg-gunMetalBlack p-2 transition hover:bg-neroBlack"
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
       >
@@ -67,7 +67,7 @@ function SongPreview({ src, songName, artist, type }: TSongPreview) {
               hover ? "opacity-100" : "opacity-0"
             }`}
           >
-            <PlayIcon />
+            <PlayIcon className="fill-pureBlack" />
           </Button>
         </div>
         <div className="mt-1">
