@@ -41,19 +41,19 @@ function MediaController() {
         </div>
       )}
       {!itIsMobile && (
-        <div className="flex flex-col items-center gap-1">
+        <div className="flex max-w-3xl shrink grow flex-col items-center gap-3">
           <div className="flex items-center gap-2">
             <Button shape="transparent">
               <BackwardIcon size={30} />
             </Button>
             <Button shape="circle">
-              <PlayIcon />
+              <PlayIcon className="fill-pureBlack" />
             </Button>
             <Button shape="transparent">
               <ForwardIcon size={30} />
             </Button>
           </div>
-          <RangeSlider />
+          <RangeSlider className="w-full" />
         </div>
       )}
       {!itIsMobile && (

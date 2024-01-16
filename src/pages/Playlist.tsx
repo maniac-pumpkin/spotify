@@ -1,10 +1,10 @@
+import isMobile from "../utils/isMobile";
+import SongPreview from "../components/SongPreview";
 import PageHeader from "../components/PageHeader";
 import Button from "../components/Button";
-import SongPreview from "../components/SongPreview";
-import isMobile from "../utils/isMobile";
 import { HeartFilledIcon } from "../icons/BoxIcons";
 
-export default function LikedSongs() {
+function Playlist() {
   const itIsMobile = isMobile();
 
   return (
@@ -33,3 +33,5 @@ export default function LikedSongs() {
     </>
   );
 }
+
+export default Playlist;

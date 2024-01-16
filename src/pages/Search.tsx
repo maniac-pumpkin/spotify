@@ -11,7 +11,11 @@ export default function Search() {
   return (
     <>
       <PageTitle title="Search" />
-      <Input placeholder="What do you want to listen to?" fullWidth />
+      <Input
+        type="search"
+        placeholder="What do you want to listen to?"
+        fullWidth
+      />
       <section className="mt-4 flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <SongPreview type={itIsMobile ? "superMini" : "mini"} />
