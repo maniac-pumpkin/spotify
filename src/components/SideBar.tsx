@@ -1,4 +1,5 @@
 import { useLocation } from "wouter";
+import { useSelector, showCreatePlaylistForm } from "../contexts/Global";
 import SideButton from "./SideButton";
 import Button from "./Button";
 import {
@@ -9,6 +10,7 @@ import {
 } from "../icons/BoxIcons";
 
 function SideBar() {
+  const { dispatch } = useSelector();
   const [location] = useLocation();
 
   return (
@@ -30,7 +32,10 @@ function SideBar() {
       <div className="flex shrink grow flex-col gap-4 overflow-y-scroll rounded-md bg-charcoalBlack p-4">
         <div className="flex items-center justify-between">
           <SideButton Icon={PlaylistIcon} text="Your Library" />
-          <Button shape="transparent">
+          <Button
+            shape="transparent"
+            onClick={() => dispatch(showCreatePlaylistForm())}
+          >
             <PlusIcon size={35} className="hover:fill-hoverWhite" />
           </Button>
         </div>

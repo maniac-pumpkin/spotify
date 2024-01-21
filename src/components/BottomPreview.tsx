@@ -1,6 +1,9 @@
+import { useSelector, showSignUpForm } from "../contexts/Global";
 import Button from "./Button";
 
 function BottomPreview() {
+  const { dispatch } = useSelector();
+
   return (
     <section className="flex w-full items-center justify-between gap-1">
       <div>
@@ -12,7 +15,9 @@ function BottomPreview() {
           card needed!
         </p>
       </div>
-      <Button className="w-20">Sign up now</Button>
+      <Button className="w-20" onClick={() => dispatch(showSignUpForm())}>
+        Sign up now
+      </Button>
     </section>
   );
 }

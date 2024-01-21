@@ -10,11 +10,13 @@ This project is an attempt to replicate the popular music streaming platform Spo
 4. Styling: Tailwind CSS is a utility-first CSS framework that provides a set of pre-defined classes to style HTML elements.
 
 ## Cloning the repo
-'''
+
+'''txt
 git clone https://github.com/maniac-pumpkin/spotify.git
 '''
 
 ## Install packages
-'''
+
+'''txt
 npm i
 '''

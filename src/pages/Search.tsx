@@ -17,24 +17,14 @@ export default function Search() {
         fullWidth
       />
       <section className="mt-4 flex flex-col gap-4">
-        <div className="flex items-center justify-between">
-          <SongPreview type={itIsMobile ? "superMini" : "mini"} />
-          <Button shape="transparent">
-            <HeartOutlinedIcon className="fill-green" />
-          </Button>
-        </div>
-        <div className="flex items-center justify-between">
-          <SongPreview type={itIsMobile ? "superMini" : "mini"} />
-          <Button shape="transparent">
-            <HeartOutlinedIcon className="fill-green" />
-          </Button>
-        </div>
-        <div className="flex items-center justify-between">
-          <SongPreview type={itIsMobile ? "superMini" : "mini"} />
-          <Button shape="transparent">
-            <HeartOutlinedIcon className="fill-green" />
-          </Button>
-        </div>
+        {Array.from({ length: 20 }, (_, i) => (
+          <div className="flex items-center justify-between" key={i + 1}>
+            <SongPreview type={itIsMobile ? "superMini" : "mini"} />
+            <Button shape="transparent">
+              <HeartOutlinedIcon className="fill-green" />
+            </Button>
+          </div>
+        ))}
       </section>
     </>
   );
