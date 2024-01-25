@@ -24,20 +24,20 @@ export default {
       lg: "778px",
       xl: "992px",
     },
+    colors: {
+      pureBlack: "#000000",
+      charcoalBlack: "#171717",
+      gunMetalBlack: "#1E1E1E",
+      neroBlack: "#252525",
+      slateGray: "#383838",
+      silverGray: "#9C9C9C",
+      pureWhite: "#FEFEFE",
+      green: "#26BC57",
+      whiteBackground: "rgba(221, 221, 221, 0.3)",
+      hoverGreen: "#3Ca214",
+      hoverWhite: "#dddddd",
+    },
     extend: {
-      colors: {
-        pureBlack: "#000000",
-        charcoalBlack: "#171717",
-        gunMetalBlack: "#1E1E1E",
-        neroBlack: "#252525",
-        slateGray: "#383838",
-        silverGray: "#9C9C9C",
-        pureWhite: "#FEFEFE",
-        green: "#26BC57",
-        whiteBackground: "rgba(221, 221, 221, 0.3)",
-        hoverGreen: "#3Ca214",
-        hoverWhite: "#dddddd",
-      },
       width: () => {
         const values = {};
         for (let i = 1; i <= 1000; i++) {

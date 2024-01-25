@@ -1,7 +1,8 @@
-import { Suspense, lazy, useEffect } from "react";
+import { Suspense, lazy } from "react";
 import { Route, useLocation } from "wouter";
 import { Toaster } from "react-hot-toast";
-import { useSelector } from "./contexts/Global";
+import { useAccountContext } from "./contexts/AccountContext";
+import { useFormContext } from "./contexts/FormContext";
 import isMobile from "./utils/isMobile";
 import "./css/custom.css";
 
@@ -16,34 +17,18 @@ import SignUp from "./components/SignUpForm";
 import CreatePlaylist from "./components/CreatePlaylistForm";
 
 import FullScreenSpinner from "./components/FullScreenSpinner";
-import NavButtons from "./components/NavButtons";
-import NavLinks from "./components/NavLinks";
-import UserButtons from "./components/UserButtons";
 import MediaController from "./components/MediaController";
 import BottomPreview from "./components/BottomPreview";
+import UserButtons from "./components/UserButtons";
+import NavButtons from "./components/NavButtons";
+import NavLinks from "./components/NavLinks";
 import SideBar from "./components/SideBar";
-import { getSongs } from "./services/apiSongs";
-import { getUsers } from "./services/apiUsers";
-
-/* Todo list (Logic)
-TODO: supabase
-TODO: Get back to song and remove albumPreview
-TODO: useOutsideClick hook for forms
-*/
 
 export default function App() {
-  const { signedIn, forms } = useSelector();
+  const { signedIn } = useAccountContext();
+  const { forms } = useFormContext();
   const [location] = useLocation();
   const itIsMobile = isMobile();
-
-  useEffect(() => {
-    (async () => {
-      const songs = await getSongs();
-      console.log(songs);
-      const users = await getUsers();
-      console.log(users);
-    })();
-  }, []);
 
   return (
     <div className="flex h-screen gap-2 p-2 pb-[9rem]">
@@ -72,7 +57,7 @@ export default function App() {
             </Suspense>
           </main>
         </div>
-        <footer className="fixed bottom-0 left-0 right-0 z-10 flex h-9 w-full items-center bg-pureBlack px-4 md:px-5">
+        <footer className="fixed bottom-0 left-0 right-0 z-10 flex h-9 w-full items-center bg-pureBlack px-3">
           {signedIn && <MediaController />}
           {!signedIn && <BottomPreview />}
         </footer>
@@ -81,7 +66,7 @@ export default function App() {
         toastOptions={{
           className: "bg-neroBlack text-pureWhite",
           position: "top-right",
-          duration: 2000,
+          duration: 2500,
         }}
       />
     </div>

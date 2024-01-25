@@ -32,7 +32,7 @@ function MediaController() {
               <BackwardIcon size={30} />
             </Button>
             <Button shape="circle">
-              <PlayIcon />
+              <PlayIcon className="fill-pureBlack" />
             </Button>
             <Button shape="transparent">
               <ForwardIcon size={30} />

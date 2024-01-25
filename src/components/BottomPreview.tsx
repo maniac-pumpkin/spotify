@@ -1,8 +1,8 @@
-import { useSelector, showSignUpForm } from "../contexts/Global";
+import { useFormContext } from "../contexts/FormContext";
 import Button from "./Button";
 
 function BottomPreview() {
-  const { dispatch } = useSelector();
+  const { formAction } = useFormContext();
 
   return (
     <section className="flex w-full items-center justify-between gap-1">
@@ -15,7 +15,7 @@ function BottomPreview() {
           card needed!
         </p>
       </div>
-      <Button className="w-20" onClick={() => dispatch(showSignUpForm())}>
+      <Button className="w-20" onClick={formAction.showSignUpForm}>
         Sign up now
       </Button>
     </section>

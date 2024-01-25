@@ -1,18 +1,36 @@
-import {
-  useSelector,
-  showSignInForm,
-  showSignUpForm,
-} from "../contexts/Global";
+import { Link } from "wouter";
+import { useFormContext } from "../contexts/FormContext";
+import { useAccountContext } from "../contexts/AccountContext";
 import Button from "./Button";
-// import { UserIcon } from "../icons/BoxIcons";
+import { UserIcon } from "../icons/BoxIcons";
+import isMobile from "../utils/isMobile";
 
 function UserButtons() {
-  const { dispatch } = useSelector();
+  const { formAction } = useFormContext();
+  const { signedIn, accountAction } = useAccountContext();
+  const itIsMobile = isMobile();
 
   return (
     <div className="flex gap-3">
-      <Button onClick={() => dispatch(showSignUpForm())}>Sign up</Button>
-      <Button onClick={() => dispatch(showSignInForm())}>Sign in</Button>
+      {!signedIn && (
+        <>
+          <Button onClick={formAction.showSignUpForm}>Sign up</Button>
+          <Button onClick={formAction.showSignInForm}>Sign in</Button>
+        </>
+      )}
+      {signedIn && (
+        <>
+          <Button onClick={accountAction.accountSignOut}>Sign out</Button>
+          <Link to="/account-settings">
+            <Button shape="square">
+              <UserIcon
+                className="fill-pureBlack"
+                size={itIsMobile ? 16 : 20}
+              />
+            </Button>
+          </Link>
+        </>
+      )}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { useSelector, hideCreatePlaylistForm } from "../contexts/Global";
+import { useFormContext } from "../contexts/FormContext";
 import BackdropLayer from "./BackdropLayer";
 import Button from "./Button";
 import Input from "./Input";
@@ -6,11 +6,14 @@ import ComboBox from "./ComboBox";
 import { CloseIcon } from "../icons/BoxIcons";
 
 function CreatePlaylistForm() {
-  const { dispatch } = useSelector();
+  const { formAction } = useFormContext();
 
   return (
     <BackdropLayer>
-      <form className="relative flex w-30 flex-col items-center justify-center gap-4 rounded-md bg-gunMetalBlack p-5 md:w-50">
+      <form
+        id="playlist-form"
+        className="relative flex w-30 flex-col items-center justify-center gap-4 rounded-md bg-gunMetalBlack p-5 md:w-50"
+      >
         <h3 className="mb-5 font-bold text-2xl">Create a playlist</h3>
         <Input
           type="text"
@@ -26,7 +29,7 @@ function CreatePlaylistForm() {
           type="button"
           shape="transparent"
           className="absolute right-2 top-2"
-          onClick={() => dispatch(hideCreatePlaylistForm())}
+          onClick={formAction.hideCreatePlaylistForm}
         >
           <CloseIcon />
         </Button>

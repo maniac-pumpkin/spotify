@@ -1,7 +1,8 @@
 import { useLocation } from "wouter";
-import { useSelector, showCreatePlaylistForm } from "../contexts/Global";
+import { useFormContext } from "../contexts/FormContext";
 import SideButton from "./SideButton";
 import Button from "./Button";
+import Warning from "./Warning";
 import {
   HomeIcon,
   PlaylistIcon,
@@ -10,7 +11,7 @@ import {
 } from "../icons/BoxIcons";
 
 function SideBar() {
-  const { dispatch } = useSelector();
+  const { formAction } = useFormContext();
   const [location] = useLocation();
 
   return (
@@ -34,11 +35,12 @@ function SideBar() {
           <SideButton Icon={PlaylistIcon} text="Your Library" />
           <Button
             shape="transparent"
-            onClick={() => dispatch(showCreatePlaylistForm())}
+            onClick={formAction.showCreatePlaylistForm}
           >
             <PlusIcon size={35} className="hover:fill-hoverWhite" />
           </Button>
         </div>
+        <Warning text="No playlist" />
       </div>
     </section>
   );

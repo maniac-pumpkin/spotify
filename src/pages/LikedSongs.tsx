@@ -1,24 +1,37 @@
+import { useQuery } from "@tanstack/react-query";
 import PageHeader from "../components/PageHeader";
-import Button from "../components/Button";
-import SongPreview from "../components/SongPreview";
-import isMobile from "../utils/isMobile";
-import { HeartFilledIcon } from "../icons/BoxIcons";
+import SongPreMini from "../components/SongPreMini";
+import Warning from "../components/Warning";
+import { getLikedSongsByID } from "../services/apiLikedSongs";
+import { Tuser } from "../services/apiUsers";
 
 export default function LikedSongs() {
-  const itIsMobile = isMobile();
+  const { data: user } = useQuery<Tuser>({
+    queryKey: ["user"],
+  });
+
+  const { data: likedSongs } = useQuery({
+    queryKey: ["likedSongs"],
+    queryFn: () => getLikedSongsByID(user?.user_id),
+    enabled: Boolean(user),
+  });
 
   return (
     <>
       <PageHeader upperText="Playlist" downerText="Liked Songs" />
       <section className="mt-4 flex flex-col gap-4">
-        {Array.from({ length: 20 }, (_, i) => (
-          <div className="flex items-center justify-between" key={i + 1}>
-            <SongPreview type={itIsMobile ? "superMini" : "mini"} />
-            <Button shape="transparent">
-              <HeartFilledIcon className="fill-green" />
-            </Button>
-          </div>
+        {likedSongs?.map((likedSong) => (
+          <SongPreMini
+            title={likedSong.title}
+            artist={likedSong.artist}
+            image={likedSong.image_path}
+            key={likedSong.song_id}
+            liked
+          />
         ))}
+        {likedSongs?.length === 0 && (
+          <Warning text="You've not liked any songs yet" />
+        )}
       </section>
     </>
   );
