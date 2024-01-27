@@ -5,14 +5,17 @@ import SongPreview from "../components/SongPreview";
 import SongPreSkeleton from "../components/SongPreSkeleton";
 import Warning from "../components/Warning";
 import PageTitle from "../components/PageTitle";
+import greeting from "../utils/greeting";
 import { getSongs } from "../services/apiSongs";
 import { Tuser } from "../services/apiUsers";
 
 export default function Home() {
   const { signedIn } = useAccountContext();
+
   const { data: user } = useQuery<Tuser>({
     queryKey: ["user"],
   });
+
   const {
     data: songs,
     isLoading,
@@ -26,16 +29,13 @@ export default function Home() {
     <>
       {signedIn && user && (
         <>
-          <PageTitle title={`Good afternoon, ${user.username}`} />
+          <PageTitle title={`${greeting()}, ${user.username}`} />
           <LikedSongsLink />
         </>
       )}
       {!isError && (
-        <section className="mt-4 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-          {isLoading &&
-            Array.from({ length: 12 }, (_, i) => (
-              <SongPreSkeleton type="normal" key={i + 1} />
-            ))}
+        <section className="mt-4 grid grid-cols-2 gap-4 md:grid-cols-1 lg:grid-cols-3 xl:grid-cols-4">
+          {isLoading && <SongPreSkeleton type="normal" quantity={8} />}
           {songs?.map((song) => (
             <SongPreview
               title={song.title}

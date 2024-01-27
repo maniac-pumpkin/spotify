@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import useLogout from "../hooks/useLogout";
 import { useFormContext } from "../contexts/FormContext";
 import { useAccountContext } from "../contexts/AccountContext";
 import Button from "./Button";
@@ -7,7 +8,8 @@ import isMobile from "../utils/isMobile";
 
 function UserButtons() {
   const { formAction } = useFormContext();
-  const { signedIn, accountAction } = useAccountContext();
+  const { signedIn } = useAccountContext();
+  const logout = useLogout();
   const itIsMobile = isMobile();
 
   return (
@@ -20,7 +22,7 @@ function UserButtons() {
       )}
       {signedIn && (
         <>
-          <Button onClick={accountAction.accountSignOut}>Sign out</Button>
+          <Button onClick={logout}>Sign out</Button>
           <Link to="/account-settings">
             <Button shape="square">
               <UserIcon

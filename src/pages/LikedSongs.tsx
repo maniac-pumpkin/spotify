@@ -2,7 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import PageHeader from "../components/PageHeader";
 import SongPreMini from "../components/SongPreMini";
 import Warning from "../components/Warning";
-import { getLikedSongsByID } from "../services/apiLikedSongs";
+import SongPreSkeleton from "../components/SongPreSkeleton";
+import { getLikedSongsByUserID } from "../services/apiLikedSongs";
 import { Tuser } from "../services/apiUsers";
 
 export default function LikedSongs() {
@@ -10,9 +11,9 @@ export default function LikedSongs() {
     queryKey: ["user"],
   });
 
-  const { data: likedSongs } = useQuery({
-    queryKey: ["likedSongs"],
-    queryFn: () => getLikedSongsByID(user?.user_id),
+  const { data: likedSongs, isLoading } = useQuery({
+    queryKey: ["songs", "liked"],
+    queryFn: () => getLikedSongsByUserID(user?.user_id),
     enabled: Boolean(user),
   });
 
@@ -25,10 +26,11 @@ export default function LikedSongs() {
             title={likedSong.title}
             artist={likedSong.artist}
             image={likedSong.image_path}
+            song_id={likedSong.song_id}
             key={likedSong.song_id}
-            liked
           />
         ))}
+        {isLoading && <SongPreSkeleton type="mini" quantity={4} />}
         {likedSongs?.length === 0 && (
           <Warning text="You've not liked any songs yet" />
         )}

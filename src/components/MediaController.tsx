@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Button from "./Button";
-import SongPreview from "./SongPreview";
 import RangeSlider from "./RangeSlider";
 import {
   PlayIcon,
@@ -21,7 +20,21 @@ function MediaController() {
 
   return (
     <section className="flex w-full items-center justify-between">
-      <SongPreview type={itIsMobile ? "superMini" : "mini"} />
+      <figure className="flex items-center gap-2">
+        <img
+          src={
+            "https://lgstazshsimhouzevait.supabase.co/storage/v1/object/public/images/Azure.png"
+          }
+          alt={"Azure"}
+          className="w-5 rounded-md bg-cover bg-center"
+        />
+        <div>
+          <h3 className="mb-1 font-bold text-sm">{"Azure"}</h3>
+          <figcaption className="text-xsm text-silverGray">
+            {"Soundroll"}
+          </figcaption>
+        </div>
+      </figure>
       {itIsMobile && (
         <div className="flex items-center gap-2">
           <Button shape="transparent">

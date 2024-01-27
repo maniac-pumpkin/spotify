@@ -1,8 +1,10 @@
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import { Route, useLocation } from "wouter";
+import { useQueryClient } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 import { useAccountContext } from "./contexts/AccountContext";
 import { useFormContext } from "./contexts/FormContext";
+import useLocalStorage from "./hooks/useLocalStorage";
 import isMobile from "./utils/isMobile";
 import "./css/custom.css";
 
@@ -25,10 +27,20 @@ import NavLinks from "./components/NavLinks";
 import SideBar from "./components/SideBar";
 
 export default function App() {
-  const { signedIn } = useAccountContext();
-  const { forms } = useFormContext();
+  const { signedIn, accountAction } = useAccountContext();
+  const queryClient = useQueryClient();
   const [location] = useLocation();
+  const { forms } = useFormContext();
+  const { getItem } = useLocalStorage("user");
   const itIsMobile = isMobile();
+
+  useEffect(() => {
+    const item = getItem();
+    if (item) {
+      queryClient.setQueryData(["user"], item);
+      accountAction.accountSignIn();
+    }
+  }, [queryClient, accountAction, getItem]);
 
   return (
     <div className="flex h-screen gap-2 p-2 pb-[9rem]">
@@ -57,7 +69,9 @@ export default function App() {
             </Suspense>
           </main>
         </div>
-        <footer className="fixed bottom-0 left-0 right-0 z-10 flex h-9 w-full items-center bg-pureBlack px-3">
+        <footer
+          className={`fixed bottom-0 left-0 right-0 z-10 flex h-9 w-full items-center bg-pureBlack px-3`}
+        >
           {signedIn && <MediaController />}
           {!signedIn && <BottomPreview />}
         </footer>

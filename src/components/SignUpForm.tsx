@@ -17,11 +17,7 @@ function SignUpForm() {
   const { formAction } = useFormContext();
 
   const { mutate } = useMutation({
-    mutationFn: () =>
-      addUser({
-        username: formInfo.inputUsername,
-        password: formInfo.inputPassword,
-      }),
+    mutationFn: () => addUser(formInfo.inputUsername, formInfo.inputPassword),
     onSuccess: () => {
       formAction.hideSignUpForm();
       toast.success("You've successfully signed up");
@@ -33,11 +29,8 @@ function SignUpForm() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (formInfo.inputConfPass !== formInfo.inputPassword) {
-      toast.error("Passwords do not match");
-      return;
-    }
-    mutate();
+    if (formInfo.inputConfPass === formInfo.inputPassword) mutate();
+    else toast.error("Passwords do not match");
   };
 
   return (

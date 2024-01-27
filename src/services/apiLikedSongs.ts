@@ -1,20 +1,18 @@
+import { URL, KEY, AUTHkey } from "./vars";
 import { getSongs } from "./apiSongs";
 
-type TlikedSong = {
+export type TlikedSong = {
   user_id: number;
   song_id: number;
   created_at?: string;
 };
-
-const URL = import.meta.env.VITE_SUPABASE_URL;
-const KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 const getLikedSongs = async () => {
   const options = {
     method: "GET",
     headers: {
       apikey: KEY,
-      Authorization: KEY,
+      Authorization: AUTHkey,
     },
   };
   const response = await fetch(`${URL}/rest/v1/liked_songs?select=*`, options);
@@ -22,7 +20,7 @@ const getLikedSongs = async () => {
   return data;
 };
 
-export const getLikedSongsByID = async (userID: number | undefined) => {
+export const getLikedSongsByUserID = async (userID: number | undefined) => {
   if (!userID) return;
   const allLikedSongs = await getLikedSongs();
   const filteredLikedSongs = allLikedSongs
@@ -35,22 +33,63 @@ export const getLikedSongsByID = async (userID: number | undefined) => {
   return likedSongs;
 };
 
-export const likeSong = async (info: TlikedSong) => {
-  const bodyData = {
-    user_id: info.user_id,
-    song_id: info.song_id,
-  };
+export const getLikedSongBySongID = async (
+  userID: number | undefined,
+  songID: number,
+) => {
+  if (!userID) return;
+  const likedSongs = await getLikedSongsByUserID(userID);
+  const matchedSong = likedSongs?.find((song) => songID === song.song_id);
+  return Boolean(matchedSong);
+};
+
+const likeSong = async (userID: number | undefined, songID: number) => {
   const options = {
     method: "POST",
     headers: {
       apikey: KEY,
-      Authorization: KEY,
+      Authorization: AUTHkey,
       "Content-Type": "application/json",
       Prefer: "return=minimal",
     },
-    body: JSON.stringify(bodyData),
+    body: JSON.stringify({
+      user_id: userID,
+      song_id: songID,
+    }),
   };
+  if (!userID) throw new Error("User ID is required");
   const response = await fetch(`${URL}/rest/v1/liked_songs`, options);
-  const data: TlikedSong = await response.json();
-  return data;
+  if (!response.ok) throw new Error("Failed to like song");
+};
+
+const unLikeSong = async (userID: number | undefined, songID: number) => {
+  const options = {
+    method: "DELETE",
+    headers: {
+      apikey: KEY,
+      Authorization: AUTHkey,
+    },
+  };
+  if (!userID) throw new Error("User ID is required");
+  const response = await fetch(
+    `${URL}/rest/v1/liked_songs?user_id=eq.${userID}&song_id=eq.${songID}`,
+    options,
+  );
+  if (!response.ok) throw new Error("Failed to delete liked song");
+};
+
+export const handleLike = async (
+  userID: number | undefined,
+  songID: number,
+) => {
+  const likedSongs = await getLikedSongs();
+  const existingSong = likedSongs.find(
+    (song) => song.user_id === userID && song.song_id === songID,
+  );
+  if (existingSong) {
+    await unLikeSong(userID, songID);
+    return false;
+  }
+  await likeSong(userID, songID);
+  return true;
 };

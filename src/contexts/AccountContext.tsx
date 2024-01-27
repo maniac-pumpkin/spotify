@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useMemo, useReducer } from "react";
 import { Taction } from "./types";
 import { Tprovider } from "./types";
 
@@ -45,18 +45,21 @@ export const useAccountContext = () => {
 export default function AccountProvider({ children }: Tprovider) {
   const [state, dispatch] = useReducer(reducer, values);
 
-  const accountAction = {
-    accountSignOut() {
-      dispatch({
-        type: "account/signOut",
-      });
-    },
-    accountSignIn() {
-      dispatch({
-        type: "account/signIn",
-      });
-    },
-  };
+  const accountAction = useMemo(
+    () => ({
+      accountSignOut() {
+        dispatch({
+          type: "account/signOut",
+        });
+      },
+      accountSignIn() {
+        dispatch({
+          type: "account/signIn",
+        });
+      },
+    }),
+    [],
+  );
 
   return (
     <Account.Provider value={{ ...state, accountAction }}>

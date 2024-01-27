@@ -1,3 +1,4 @@
+import { URL, KEY, AUTHkey } from "./vars";
 import validateUsername from "../utils/validateUsername";
 import validatePassword from "../utils/validatorPassword";
 
@@ -8,15 +9,12 @@ export type Tuser = {
   created_at?: string;
 };
 
-const URL = import.meta.env.VITE_SUPABASE_URL;
-const KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
-
-export const getUsers = async () => {
+const getUsers = async () => {
   const options = {
     method: "GET",
     headers: {
       apikey: KEY,
-      Authorization: KEY,
+      Authorization: AUTHkey,
     },
   };
   const response = await fetch(`${URL}/rest/v1/users?select=*`, options);
@@ -25,43 +23,38 @@ export const getUsers = async () => {
   return data;
 };
 
-export const addUser = async (credentials: Tuser) => {
-  const bodyData = {
-    username: credentials.username,
-    password: credentials.password,
-  };
+export const addUser = async (username: string, password: string) => {
   const options = {
     method: "POST",
     headers: {
       apikey: KEY,
-      Authorization: KEY,
+      Authorization: AUTHkey,
       "Content-Type": "application/json",
       Prefer: "return=minimal",
     },
-    body: JSON.stringify(bodyData),
+    body: JSON.stringify({
+      username,
+      password,
+    }),
   };
   const users = await getUsers();
-  const existingUser = users?.find(
-    (user) => user.username === credentials.username,
-  );
+  const existingUser = users?.find((user) => user.username === username);
   if (existingUser) throw new Error("Username is already taken");
-  if (!validateUsername(credentials.username))
+  if (!validateUsername(username))
     throw new Error(
       "Username must consist of English characters and be at least 5 characters long",
     );
-  if (!validatePassword(credentials.password))
+  if (!validatePassword(password))
     throw new Error(
       "Password must contain at least one special character and one uppercase letter.",
     );
-  const response = await fetch(`${URL}/rest/v1/users`, options);
-  const data: Tuser = await response.json();
-  return data;
+  await fetch(`${URL}/rest/v1/users`, options);
 };
 
 export const handleSignIn = async (
   inputUsername: string,
   inputPassword: string,
-  onSuccessFn: () => void,
+  onSuccessFn: (user: Tuser) => void,
   onFailureFn: () => void,
 ) => {
   const users = await getUsers();
@@ -74,6 +67,6 @@ export const handleSignIn = async (
     onFailureFn();
     return;
   }
-  onSuccessFn();
+  onSuccessFn(matchedUser);
   return matchedUser;
 };

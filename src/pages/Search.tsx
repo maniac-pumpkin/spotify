@@ -13,7 +13,7 @@ export default function Search() {
   const delayedValue = useDebounce(searchText);
 
   const { data: songs, isLoading } = useQuery({
-    queryKey: ["filteredSongs"],
+    queryKey: ["songs", "searched"],
     queryFn: () => getSongsByTitle(delayedValue),
     enabled: Boolean(delayedValue),
   });
@@ -35,13 +35,11 @@ export default function Search() {
               title={song.title}
               artist={song.artist}
               image={song.image_path}
+              song_id={song.song_id}
               key={song.song_id}
             />
           ))}
-        {isLoading &&
-          Array.from({ length: 4 }, (_, i) => (
-            <SongPreSkeleton type="mini" key={i + 1} />
-          ))}
+        {isLoading && <SongPreSkeleton type="mini" quantity={4} />}
         {!isLoading && !delayedValue && <Warning text="No song found" />}
       </section>
     </>

@@ -1,18 +1,11 @@
-import { useLocation } from "wouter";
-import { useAccountContext } from "../contexts/AccountContext";
+import useLogout from "../hooks/useLogout";
 import PageTitle from "../components/PageTitle";
 import Button from "../components/Button";
 import isMobile from "../utils/isMobile";
 
 export default function AccountSettings() {
-  const [, setLocation] = useLocation();
-  const { accountAction } = useAccountContext();
+  const logout = useLogout();
   const itIsMobile = isMobile();
-
-  const handleSignOut = () => {
-    accountAction.accountSignOut();
-    setLocation("/");
-  };
 
   return (
     <>
@@ -21,12 +14,12 @@ export default function AccountSettings() {
         You are currently on the Spotify Premium plan!
       </p>
       {itIsMobile && (
-        <Button color="green" fullWidth onClick={handleSignOut}>
+        <Button color="green" fullWidth onClick={logout}>
           Logout
         </Button>
       )}
       {!itIsMobile && (
-        <Button className="w-20" color="green" onClick={handleSignOut}>
+        <Button className="w-20" color="green" onClick={logout}>
           Logout
         </Button>
       )}

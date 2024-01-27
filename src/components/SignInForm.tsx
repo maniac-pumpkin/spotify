@@ -8,6 +8,7 @@ import Input from "./Input";
 import Button from "./Button";
 import { CloseIcon, SpotifyIcon } from "../icons/BoxIcons";
 import { handleSignIn } from "../services/apiUsers";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 function SignInForm() {
   const [formInfo, setFormInfo] = useState({
@@ -16,6 +17,7 @@ function SignInForm() {
   });
   const { formAction } = useFormContext();
   const { accountAction } = useAccountContext();
+  const { setItem } = useLocalStorage("user");
 
   const { refetch } = useQuery({
     queryKey: ["user"],
@@ -23,7 +25,8 @@ function SignInForm() {
       handleSignIn(
         formInfo.inputUsername,
         formInfo.inputPassword,
-        () => {
+        (user) => {
+          setItem(user);
           formAction.hideSignInForm();
           accountAction.accountSignIn();
           toast.success("Successfully signed in");
@@ -32,6 +35,7 @@ function SignInForm() {
           toast.error("Credentials are incorrect");
         },
       ),
+    staleTime: Infinity,
     enabled: false,
   });
 
@@ -40,8 +44,8 @@ function SignInForm() {
       <form
         id="sign-in-form"
         className="relative flex w-30 flex-col items-center justify-center gap-4 rounded-md bg-gunMetalBlack p-5 md:w-50"
-        onSubmit={(event) => {
-          event.preventDefault();
+        onSubmit={(e) => {
+          e.preventDefault();
           refetch();
         }}
       >

@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useMemo, useReducer } from "react";
 import { Taction } from "./types";
 import { Tprovider } from "./types";
 
@@ -61,26 +61,29 @@ export const useFormContext = () => {
 export default function FormProvider({ children }: Tprovider) {
   const [state, dispatch] = useReducer(reducer, values);
 
-  const formAction = {
-    showSignInForm() {
-      dispatch({ type: "form/showSignIn" });
-    },
-    showSignUpForm() {
-      dispatch({ type: "form/showSignUp" });
-    },
-    showCreatePlaylistForm() {
-      dispatch({ type: "form/showCreatePlaylist" });
-    },
-    hideSignInForm() {
-      dispatch({ type: "form/hideSignIn" });
-    },
-    hideSignUpForm() {
-      dispatch({ type: "form/hideSignUp" });
-    },
-    hideCreatePlaylistForm() {
-      dispatch({ type: "form/hideCreatePlaylist" });
-    },
-  };
+  const formAction = useMemo(
+    () => ({
+      showSignInForm() {
+        dispatch({ type: "form/showSignIn" });
+      },
+      showSignUpForm() {
+        dispatch({ type: "form/showSignUp" });
+      },
+      showCreatePlaylistForm() {
+        dispatch({ type: "form/showCreatePlaylist" });
+      },
+      hideSignInForm() {
+        dispatch({ type: "form/hideSignIn" });
+      },
+      hideSignUpForm() {
+        dispatch({ type: "form/hideSignUp" });
+      },
+      hideCreatePlaylistForm() {
+        dispatch({ type: "form/hideCreatePlaylist" });
+      },
+    }),
+    [],
+  );
 
   return (
     <Form.Provider value={{ ...state, formAction }}>{children}</Form.Provider>

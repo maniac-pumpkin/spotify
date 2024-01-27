@@ -11,7 +11,7 @@ import FormProvider from "./contexts/FormContext.tsx";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 0,
+      staleTime: 5000,
     },
   },
 });

@@ -1,3 +1,5 @@
+import { URL, KEY, AUTHkey } from "./vars";
+
 export type Tsong = {
   song_id: number;
   title: string;
@@ -7,15 +9,12 @@ export type Tsong = {
   created_at: string;
 };
 
-const URL = import.meta.env.VITE_SUPABASE_URL;
-const KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
-
 export const getSongs = async () => {
   const options = {
     method: "GET",
     headers: {
       apikey: KEY,
-      Authorization: KEY,
+      Authorization: AUTHkey,
     },
   };
   const response = await fetch(`${URL}/rest/v1/songs?select=*`, options);
