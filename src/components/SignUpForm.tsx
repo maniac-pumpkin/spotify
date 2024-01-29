@@ -7,6 +7,7 @@ import Button from "./Button";
 import Input from "./Input";
 import { CloseIcon, SpotifyIcon } from "../icons/BoxIcons";
 import { addUser } from "../services/apiUsers";
+import useOutsideClick from "../hooks/useOutsideClick";
 
 function SignUpForm() {
   const [formInfo, setFormInfo] = useState({
@@ -15,6 +16,7 @@ function SignUpForm() {
     inputConfPass: "",
   });
   const { formAction } = useFormContext();
+  const formRef = useOutsideClick<HTMLFormElement>(formAction.hideSignUpForm);
 
   const { mutate } = useMutation({
     mutationFn: () => addUser(formInfo.inputUsername, formInfo.inputPassword),
@@ -39,6 +41,7 @@ function SignUpForm() {
         id="sign-up-form"
         className="relative flex w-30 flex-col items-center justify-center gap-4 rounded-md bg-gunMetalBlack p-5 md:w-50"
         onSubmit={handleSubmit}
+        ref={formRef}
       >
         <div className="mb-5">
           <SpotifyIcon />

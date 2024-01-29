@@ -262,6 +262,21 @@ export function RepeatIcon({ className, size = defaultSize }: Ticon) {
   );
 }
 
+export function MusicIcon({ className, size = defaultSize }: Ticon) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill={defaultColor}
+      className={`transition hover:fill-pureWhite ${className}`}
+    >
+      <path d="M6 18.573c2.206 0 4-1.794 4-4V4.428L19 7.7v7.43a3.953 3.953 0 0 0-2-.557c-2.206 0-4 1.794-4 4s1.794 4 4 4 4-1.794 4-4V7a.998.998 0 0 0-.658-.939l-11-4A.999.999 0 0 0 8 3v8.13a3.953 3.953 0 0 0-2-.557c-2.206 0-4 1.794-4 4s1.794 4 4 4z"></path>
+    </svg>
+  );
+}
+
 export function TrashcanIcon({ className, size = defaultSize }: Ticon) {
   return (
     <svg
@@ -270,7 +285,7 @@ export function TrashcanIcon({ className, size = defaultSize }: Ticon) {
       height={size}
       viewBox="0 0 24 24"
       fill={defaultColor}
-      className={`transition ${className}`}
+      className={`transition hover:fill-pureWhite ${className}`}
     >
       <path d="M6 7H5v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7H6zm4 12H8v-9h2v9zm6 0h-2v-9h2v9zm.618-15L15 2H9L7.382 4H3v2h18V4z"></path>
     </svg>

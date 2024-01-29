@@ -1,18 +1,26 @@
 import { useLocation } from "wouter";
+import { useQuery } from "@tanstack/react-query";
 import { useFormContext } from "../contexts/FormContext";
 import SideButton from "./SideButton";
 import Button from "./Button";
 import Warning from "./Warning";
+import PlaylistItem from "./PlaylistItem";
 import {
   HomeIcon,
   PlaylistIcon,
   PlusIcon,
   SearchIcon,
 } from "../icons/BoxIcons";
+import { getPlaylists } from "../services/apiPlaylist";
 
 function SideBar() {
   const { formAction } = useFormContext();
   const [location] = useLocation();
+
+  const { data: playlists } = useQuery({
+    queryKey: ["playlists"],
+    queryFn: getPlaylists,
+  });
 
   return (
     <section className="flex h-full w-40 flex-col gap-2">
@@ -40,7 +48,12 @@ function SideBar() {
             <PlusIcon size={35} className="hover:fill-hoverWhite" />
           </Button>
         </div>
-        <Warning text="No playlist" />
+        {playlists?.length === 0 && <Warning text="No playlist" />}
+        <section className="flex flex-col gap-4">
+          {playlists?.map((list) => (
+            <PlaylistItem name={list.name} key={list.playlist_id} />
+          ))}
+        </section>
       </div>
     </section>
   );

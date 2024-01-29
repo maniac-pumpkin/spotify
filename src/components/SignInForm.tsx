@@ -9,6 +9,7 @@ import Button from "./Button";
 import { CloseIcon, SpotifyIcon } from "../icons/BoxIcons";
 import { handleSignIn } from "../services/apiUsers";
 import useLocalStorage from "../hooks/useLocalStorage";
+import useOutsideClick from "../hooks/useOutsideClick";
 
 function SignInForm() {
   const [formInfo, setFormInfo] = useState({
@@ -18,6 +19,7 @@ function SignInForm() {
   const { formAction } = useFormContext();
   const { accountAction } = useAccountContext();
   const { setItem } = useLocalStorage("user");
+  const formRef = useOutsideClick<HTMLFormElement>(formAction.hideSignInForm);
 
   const { refetch } = useQuery({
     queryKey: ["user"],
@@ -48,6 +50,7 @@ function SignInForm() {
           e.preventDefault();
           refetch();
         }}
+        ref={formRef}
       >
         <div className="mb-5">
           <SpotifyIcon />

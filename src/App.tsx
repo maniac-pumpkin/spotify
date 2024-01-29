@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect } from "react";
+import { Suspense, lazy, useLayoutEffect } from "react";
 import { Route, useLocation } from "wouter";
 import { useQueryClient } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
@@ -26,6 +26,27 @@ import NavButtons from "./components/NavButtons";
 import NavLinks from "./components/NavLinks";
 import SideBar from "./components/SideBar";
 
+/* Todo list (Logic)
+TODO: Ability to create playlist
+TODO: Ability to delete playlist
+TODO: Ability to navigate to playlist page
+TODO: Play song and media controller
+TODO: Auth access, and protect routes
+TODO: SEO best practices
+TODO: Proper way of loading images
+TODO: Error Boundaries and handling additional errors in api
+TODO: Another color for green hover
+TODO: Taking advantage of isLoading (spinner)
+TODO: Not totally responsive (make sure to include container)
+TODO: Sort imports, states and modules
+TODO: Better Warnings
+TODO: Delete tanstack devtool library
+TODO: better search results in search page
+TODO: move reusable JSX codes into component
+TODO: Optimization and memoization
+TODO: Readme.md
+*/
+
 export default function App() {
   const { signedIn, accountAction } = useAccountContext();
   const queryClient = useQueryClient();
@@ -34,7 +55,7 @@ export default function App() {
   const { getItem } = useLocalStorage("user");
   const itIsMobile = isMobile();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const item = getItem();
     if (item) {
       queryClient.setQueryData(["user"], item);

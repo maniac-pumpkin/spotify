@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 
 function useLocalStorage(key: string) {
-  const setItem = (value: unknown) => {
+  const setItem = (value: unknown): void => {
     try {
       localStorage.setItem(key, JSON.stringify(value));
     } catch (err) {
