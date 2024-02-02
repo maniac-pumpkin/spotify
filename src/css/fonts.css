@@ -1,35 +1,23 @@
 @font-face {
-	font-family: font-book;
-	src: url("./font/CircularStd-Book.otf");
-	line-gap-override: normal;
-	descent-override: normal;
-	ascent-override: normal;
-	font-weight: normal;
-	font-style: normal;
-	font-display: swap;
-	size-adjust: 100%;
+  font-family: font-medium;
+  src: url("./font/CircularStd-Medium.woff2");
+  line-gap-override: normal;
+  descent-override: normal;
+  ascent-override: normal;
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 100%;
 }
 
 @font-face {
-	font-family: font-medium;
-	src: url("./font/CircularStd-Medium.otf");
-	line-gap-override: normal;
-	descent-override: normal;
-	ascent-override: normal;
-	font-weight: normal;
-	font-style: normal;
-	font-display: swap;
-	size-adjust: 100%;
-}
-
-@font-face {
-	font-family: font-bold;
-	src: url("./font/CircularStd-Bold.otf");
-	line-gap-override: normal;
-	descent-override: normal;
-	ascent-override: normal;
-	font-weight: normal;
-	font-style: normal;
-	font-display: swap;
-	size-adjust: 100%;
+  font-family: font-bold;
+  src: url("./font/CircularStd-Bold.woff2");
+  line-gap-override: normal;
+  descent-override: normal;
+  ascent-override: normal;
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 100%;
 }
