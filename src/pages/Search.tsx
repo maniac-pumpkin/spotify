@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import SongPreMini from "../components/SongPreMini";
 import PageTitle from "../components/PageTitle";
-import Input from "../components/Input";
+import Input from "../components/ui/Input";
 import Warning from "../components/Warning";
 import SongPreSkeleton from "../components/SongPreSkeleton";
 import { getSongsByTitle } from "../services/apiSongs";

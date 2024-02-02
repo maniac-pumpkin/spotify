@@ -12,9 +12,7 @@ import { Tuser } from "../services/apiUsers";
 export default function Home() {
   const { signedIn } = useAccountContext();
 
-  const { data: user } = useQuery<Tuser>({
-    queryKey: ["user"],
-  });
+  const { data: user } = useQuery<Tuser>({ queryKey: ["user"] });
 
   const {
     data: songs,
@@ -27,9 +25,9 @@ export default function Home() {
 
   return (
     <>
-      {signedIn && user && (
+      {signedIn && (
         <>
-          <PageTitle title={`${greeting()}, ${user.username}`} />
+          <PageTitle title={`${greeting()}, ${user?.username}`} />
           <LikedSongsLink />
         </>
       )}

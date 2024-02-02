@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useFormContext } from "../contexts/FormContext";
-import { useAccountContext } from "../contexts/AccountContext";
+import { useFormContext } from "../../contexts/FormContext";
+import { useAccountContext } from "../../contexts/AccountContext";
 import { toast } from "react-hot-toast";
-import BackdropLayer from "./BackdropLayer";
-import Input from "./Input";
-import Button from "./Button";
-import { CloseIcon, SpotifyIcon } from "../icons/BoxIcons";
-import { handleSignIn } from "../services/apiUsers";
-import useLocalStorage from "../hooks/useLocalStorage";
-import useOutsideClick from "../hooks/useOutsideClick";
+import BackdropLayer from "../structural/BackdropLayer";
+import Input from "../ui/Input";
+import Button from "../ui/Button";
+import { CloseIcon, SpotifyIcon } from "../../icons/BoxIcons";
+import { handleSignIn } from "../../services/apiUsers";
+import useLocalStorage from "../../hooks/useLocalStorage";
+import useOutsideClick from "../../hooks/useOutsideClick";
 
 function SignInForm() {
   const [formInfo, setFormInfo] = useState({

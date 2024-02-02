@@ -1,13 +1,13 @@
 import { FormEvent, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
-import { useFormContext } from "../contexts/FormContext";
-import BackdropLayer from "./BackdropLayer";
-import Button from "./Button";
-import Input from "./Input";
-import { CloseIcon, SpotifyIcon } from "../icons/BoxIcons";
-import { addUser } from "../services/apiUsers";
-import useOutsideClick from "../hooks/useOutsideClick";
+import { useFormContext } from "../../contexts/FormContext";
+import BackdropLayer from "../structural/BackdropLayer";
+import Button from "../ui/Button";
+import Input from "../ui/Input";
+import { CloseIcon, SpotifyIcon } from "../../icons/BoxIcons";
+import { addUser } from "../../services/apiUsers";
+import useOutsideClick from "../../hooks/useOutsideClick";
 
 function SignUpForm() {
   const [formInfo, setFormInfo] = useState({

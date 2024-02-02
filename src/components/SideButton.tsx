@@ -1,4 +1,4 @@
-import { useLocation } from "wouter";
+import { Link } from "wouter";
 import { useState, ComponentType } from "react";
 import { Ticon } from "../icons/BoxIcons";
 
@@ -11,27 +11,23 @@ type TsideButton = {
 
 function SideButton({ Icon, text, enabled, to }: TsideButton) {
   const [hover, setHover] = useState(false);
-  const [, setLocation] = useLocation();
 
   return (
-    <div
+    <Link
       className="flex cursor-pointer items-center"
-      onClick={() => setLocation(to ? to : "")}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
+      to={to ? to : ""}
     >
-      {
-        <Icon
-          size={35}
-          className={
-            hover
+      <Icon
+        className={`h-3.5 w-3.5 ${
+          hover
+            ? "fill-pureWhite"
+            : enabled
               ? "fill-pureWhite"
-              : enabled
-                ? "fill-pureWhite"
-                : "fill-silverGray"
-          }
-        />
-      }
+              : "fill-silverGray"
+        }`}
+      />
       <span
         className={`ml-2 text-lg transition ${
           hover
@@ -43,7 +39,7 @@ function SideButton({ Icon, text, enabled, to }: TsideButton) {
       >
         {text}
       </span>
-    </div>
+    </Link>
   );
 }
 

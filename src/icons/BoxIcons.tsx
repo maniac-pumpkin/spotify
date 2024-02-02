@@ -1,18 +1,15 @@
 const defaultSize = 24;
 const defaultColor = "#9C9C9C";
 
-export type Ticon = {
-  size?: number;
-  className?: string;
-};
+export type Ticon = { className?: string };
 
-export function LoaderCircleIcon({ className, size = defaultSize }: Ticon) {
+export function LoaderCircleIcon({ className }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
       viewBox="0 0 24 24"
+      width={defaultSize}
+      height={defaultSize}
       fill={defaultColor}
       className={`transition ${className}`}
     >
@@ -21,13 +18,13 @@ export function LoaderCircleIcon({ className, size = defaultSize }: Ticon) {
   );
 }
 
-export function HomeIcon({ className, size = defaultSize }: Ticon) {
+export function HomeIcon({ className }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
       viewBox="0 0 24 24"
+      width={defaultSize}
+      height={defaultSize}
       fill={defaultColor}
       className={`transition ${className}`}
     >
@@ -36,13 +33,13 @@ export function HomeIcon({ className, size = defaultSize }: Ticon) {
   );
 }
 
-export function SearchIcon({ className, size = defaultSize }: Ticon) {
+export function SearchIcon({ className }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
       viewBox="0 0 24 24"
+      width={defaultSize}
+      height={defaultSize}
       fill={defaultColor}
       className={`transition ${className}`}
     >
@@ -51,13 +48,13 @@ export function SearchIcon({ className, size = defaultSize }: Ticon) {
   );
 }
 
-export function PlayIcon({ className, size = defaultSize }: Ticon) {
+export function PlayIcon({ className }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
       viewBox="0 0 24 24"
+      width={defaultSize}
+      height={defaultSize}
       fill={defaultColor}
       className={`transition ${className}`}
     >
@@ -66,13 +63,13 @@ export function PlayIcon({ className, size = defaultSize }: Ticon) {
   );
 }
 
-export function PlaylistIcon({ className, size = defaultSize }: Ticon) {
+export function PlaylistIcon({ className }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
       viewBox="0 0 24 24"
+      width={defaultSize}
+      height={defaultSize}
       fill={defaultColor}
       className={`transition ${className}`}
     >
@@ -82,13 +79,13 @@ export function PlaylistIcon({ className, size = defaultSize }: Ticon) {
   );
 }
 
-export function PlusIcon({ className, size = defaultSize }: Ticon) {
+export function PlusIcon({ className }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
       viewBox="0 0 24 24"
+      width={defaultSize}
+      height={defaultSize}
       fill={defaultColor}
       className={`transition ${className}`}
     >
@@ -97,13 +94,13 @@ export function PlusIcon({ className, size = defaultSize }: Ticon) {
   );
 }
 
-export function ArrowRightIcon({ className, size = defaultSize }: Ticon) {
+export function ArrowRightIcon({ className }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
       viewBox="0 0 24 24"
+      width={defaultSize}
+      height={defaultSize}
       fill={defaultColor}
       className={`transition ${className}`}
     >
@@ -112,13 +109,13 @@ export function ArrowRightIcon({ className, size = defaultSize }: Ticon) {
   );
 }
 
-export function ArrowLeftIcon({ className, size = defaultSize }: Ticon) {
+export function ArrowLeftIcon({ className }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
       viewBox="0 0 24 24"
+      width={defaultSize}
+      height={defaultSize}
       fill={defaultColor}
       className={`transition ${className}`}
     >
@@ -127,13 +124,13 @@ export function ArrowLeftIcon({ className, size = defaultSize }: Ticon) {
   );
 }
 
-export function HeartFilledIcon({ className, size = defaultSize }: Ticon) {
+export function HeartFilledIcon({ className }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
       viewBox="0 0 24 24"
+      width={defaultSize}
+      height={defaultSize}
       fill={defaultColor}
       className={`transition ${className}`}
     >
@@ -142,13 +139,13 @@ export function HeartFilledIcon({ className, size = defaultSize }: Ticon) {
   );
 }
 
-export function HeartOutlinedIcon({ className, size = defaultSize }: Ticon) {
+export function HeartOutlinedIcon({ className }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
       viewBox="0 0 24 24"
+      width={defaultSize}
+      height={defaultSize}
       fill={defaultColor}
       className={`transition ${className}`}
     >
@@ -157,13 +154,13 @@ export function HeartOutlinedIcon({ className, size = defaultSize }: Ticon) {
   );
 }
 
-export function PauseIcon({ className, size = defaultSize }: Ticon) {
+export function PauseIcon({ className }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
       viewBox="0 0 24 24"
+      width={defaultSize}
+      height={defaultSize}
       fill={defaultColor}
       className={`transition ${className}`}
     >
@@ -172,13 +169,13 @@ export function PauseIcon({ className, size = defaultSize }: Ticon) {
   );
 }
 
-export function BackwardIcon({ className, size = defaultSize }: Ticon) {
+export function BackwardIcon({ className }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
       viewBox="0 0 24 24"
+      width={defaultSize}
+      height={defaultSize}
       fill={defaultColor}
       className={`transition hover:fill-pureWhite ${className}`}
     >
@@ -187,13 +184,13 @@ export function BackwardIcon({ className, size = defaultSize }: Ticon) {
   );
 }
 
-export function ForwardIcon({ className, size = defaultSize }: Ticon) {
+export function ForwardIcon({ className }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
       viewBox="0 0 24 24"
+      width={defaultSize}
+      height={defaultSize}
       fill={defaultColor}
       className={`transition hover:fill-pureWhite ${className}`}
     >
@@ -202,13 +199,13 @@ export function ForwardIcon({ className, size = defaultSize }: Ticon) {
   );
 }
 
-export function UserIcon({ className, size = defaultSize }: Ticon) {
+export function UserIcon({ className }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
       viewBox="0 0 24 24"
+      width={defaultSize}
+      height={defaultSize}
       fill={defaultColor}
       className={`transition ${className}`}
     >
@@ -217,13 +214,13 @@ export function UserIcon({ className, size = defaultSize }: Ticon) {
   );
 }
 
-export function CloseIcon({ className, size = defaultSize }: Ticon) {
+export function CloseIcon({ className }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
       viewBox="0 0 24 24"
+      width={defaultSize}
+      height={defaultSize}
       fill={defaultColor}
       className={`transition hover:fill-pureWhite ${className}`}
     >
@@ -232,13 +229,13 @@ export function CloseIcon({ className, size = defaultSize }: Ticon) {
   );
 }
 
-export function CheckIcon({ className, size = defaultSize }: Ticon) {
+export function CheckIcon({ className }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
       viewBox="0 0 24 24"
+      width={defaultSize}
+      height={defaultSize}
       fill={defaultColor}
       className={`transition hover:fill-pureWhite ${className}`}
     >
@@ -247,13 +244,13 @@ export function CheckIcon({ className, size = defaultSize }: Ticon) {
   );
 }
 
-export function RepeatIcon({ className, size = defaultSize }: Ticon) {
+export function RepeatIcon({ className }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
       viewBox="0 0 24 24"
+      width={defaultSize}
+      height={defaultSize}
       fill={defaultColor}
       className={`transition hover:fill-pureWhite ${className}`}
     >
@@ -262,13 +259,13 @@ export function RepeatIcon({ className, size = defaultSize }: Ticon) {
   );
 }
 
-export function MusicIcon({ className, size = defaultSize }: Ticon) {
+export function MusicIcon({ className }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
       viewBox="0 0 24 24"
+      width={defaultSize}
+      height={defaultSize}
       fill={defaultColor}
       className={`transition hover:fill-pureWhite ${className}`}
     >
@@ -277,13 +274,13 @@ export function MusicIcon({ className, size = defaultSize }: Ticon) {
   );
 }
 
-export function TrashcanIcon({ className, size = defaultSize }: Ticon) {
+export function TrashcanIcon({ className }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
       viewBox="0 0 24 24"
+      width={defaultSize}
+      height={defaultSize}
       fill={defaultColor}
       className={`transition hover:fill-pureWhite ${className}`}
     >
@@ -292,13 +289,13 @@ export function TrashcanIcon({ className, size = defaultSize }: Ticon) {
   );
 }
 
-export function FullScreenIcon({ className, size = defaultSize }: Ticon) {
+export function FullScreenIcon({ className }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
       viewBox="0 0 24 24"
+      width={defaultSize}
+      height={defaultSize}
       fill={defaultColor}
       className={`transition hover:fill-pureWhite ${className}`}
     >
@@ -307,13 +304,13 @@ export function FullScreenIcon({ className, size = defaultSize }: Ticon) {
   );
 }
 
-export function ExitFullScreenIcon({ className, size = defaultSize }: Ticon) {
+export function ExitFullScreenIcon({ className }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
       viewBox="0 0 24 24"
+      width={defaultSize}
+      height={defaultSize}
       fill={defaultColor}
       className={`transition hover:fill-pureWhite ${className}`}
     >
@@ -322,13 +319,13 @@ export function ExitFullScreenIcon({ className, size = defaultSize }: Ticon) {
   );
 }
 
-export function VolumeOffIcon({ className, size = defaultSize }: Ticon) {
+export function VolumeOffIcon({ className }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
       viewBox="0 0 24 24"
+      width={defaultSize}
+      height={defaultSize}
       fill={defaultColor}
       className={`transition hover:fill-pureWhite ${className}`}
     >
@@ -337,13 +334,13 @@ export function VolumeOffIcon({ className, size = defaultSize }: Ticon) {
   );
 }
 
-export function VolumeLowIcon({ className, size = defaultSize }: Ticon) {
+export function VolumeLowIcon({ className }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
       viewBox="0 0 24 24"
+      width={defaultSize}
+      height={defaultSize}
       fill={defaultColor}
       className={`transition hover:fill-pureWhite ${className}`}
     >
@@ -352,13 +349,13 @@ export function VolumeLowIcon({ className, size = defaultSize }: Ticon) {
   );
 }
 
-export function VolumeFullIcon({ className, size = defaultSize }: Ticon) {
+export function VolumeFullIcon({ className }: Ticon) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
       viewBox="0 0 24 24"
+      width={defaultSize}
+      height={defaultSize}
       fill={defaultColor}
       className={`transition hover:fill-pureWhite ${className}`}
     >

@@ -1,4 +1,4 @@
-import Button from "./Button";
+import Button from "./ui/Button";
 import { ArrowLeftIcon, ArrowRightIcon } from "../icons/BoxIcons";
 
 // I know this is really awkward however i didn't want to use react-router-dom anyway cause there are tons of features that i don't really need to use!
@@ -15,10 +15,10 @@ function NavButtons() {
   return (
     <div className="flex items-center gap-3">
       <Button shape="circle" onClick={stepBack}>
-        <ArrowLeftIcon className="fill-pureBlack" size={40} />
+        <ArrowLeftIcon className="h-4 w-4 fill-pureBlack" />
       </Button>
       <Button shape="circle" onClick={stepForward}>
-        <ArrowRightIcon className="fill-pureBlack" size={40} />
+        <ArrowRightIcon className="h-4 w-4 fill-pureBlack" />
       </Button>
     </div>
   );

@@ -1,20 +1,18 @@
-import { Link } from "wouter";
-import Button from "./Button";
+import { useLocation } from "wouter";
+import Button from "./ui/Button";
 import { HomeIcon, SearchIcon } from "../icons/BoxIcons";
 
 function NavLinks() {
+  const [, setLocation] = useLocation();
+
   return (
     <nav className="flex items-center gap-3">
-      <Link to="/">
-        <Button shape="square">
-          <HomeIcon className="fill-pureBlack" size={16} />
-        </Button>
-      </Link>
-      <Link to="/search">
-        <Button shape="square">
-          <SearchIcon className="fill-pureBlack" size={16} />
-        </Button>
-      </Link>
+      <Button shape="square" onClick={() => setLocation("/")}>
+        <HomeIcon className="h-1.6 w-1.6 fill-pureBlack" />
+      </Button>
+      <Button shape="square" onClick={() => setLocation("/search")}>
+        <SearchIcon className="h-1.6 w-1.6 fill-pureBlack" />
+      </Button>
     </nav>
   );
 }

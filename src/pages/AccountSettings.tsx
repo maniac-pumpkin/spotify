@@ -1,6 +1,6 @@
 import useLogout from "../hooks/useLogout";
 import PageTitle from "../components/PageTitle";
-import Button from "../components/Button";
+import Button from "../components/ui/Button";
 import isMobile from "../utils/isMobile";
 
 export default function AccountSettings() {

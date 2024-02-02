@@ -1,10 +1,10 @@
 import BackdropLayer from "./BackdropLayer";
-import Spinner from "./Spinner";
+import Spinner from "../ui/Spinner";
 
 function FullScreenSpinner() {
   return (
     <BackdropLayer>
-      <Spinner size={80} />
+      <Spinner className="h-8 w-8" />
     </BackdropLayer>
   );
 }

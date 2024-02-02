@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Button from "./Button";
-import RangeSlider from "./RangeSlider";
+import Button from "./ui/Button";
+import RangeSlider from "./ui/RangeSlider";
 import {
   PlayIcon,
   ForwardIcon,
@@ -12,11 +12,9 @@ import {
   VolumeFullIcon,
 } from "../icons/BoxIcons";
 import toggleFullScreen from "../utils/toggleFullScreen";
-import isMobile from "../utils/isMobile";
 
 function MediaController() {
   const [volume, setVolume] = useState(100);
-  const itIsMobile = isMobile();
 
   return (
     <section className="flex w-full items-center justify-between">
@@ -35,44 +33,44 @@ function MediaController() {
           </figcaption>
         </div>
       </figure>
-      {itIsMobile && (
+      <div className="md:hidden">
         <div className="flex items-center gap-2">
           <Button shape="transparent">
-            <RepeatIcon size={20} />
+            <RepeatIcon className="h-2 w-2" />
           </Button>
           <div className="flex items-center gap-2">
             <Button shape="transparent">
-              <BackwardIcon size={30} />
+              <BackwardIcon className="h-3 w-3" />
             </Button>
             <Button shape="circle">
               <PlayIcon className="fill-pureBlack" />
             </Button>
             <Button shape="transparent">
-              <ForwardIcon size={30} />
+              <ForwardIcon className="h-3 w-3" />
             </Button>
           </div>
         </div>
-      )}
-      {!itIsMobile && (
+      </div>
+      <div className="hidden md:block">
         <div className="flex max-w-3xl shrink grow flex-col items-center gap-3">
           <div className="flex items-center gap-2">
             <Button shape="transparent">
-              <BackwardIcon size={30} />
+              <BackwardIcon className="h-3 w-3" />
             </Button>
             <Button shape="circle">
-              <PlayIcon className="fill-pureBlack" size={35} />
+              <PlayIcon className="h-3 w-3 fill-pureBlack" />
             </Button>
             <Button shape="transparent">
-              <ForwardIcon size={30} />
+              <ForwardIcon className="h-3 w-3" />
             </Button>
           </div>
           <RangeSlider className="w-full" />
         </div>
-      )}
-      {!itIsMobile && (
+      </div>
+      <div className="hidden md:block">
         <div className="flex items-center gap-2">
           <Button shape="transparent">
-            <RepeatIcon size={20} />
+            <RepeatIcon className="w-2" />
           </Button>
           <div className="flex items-center gap-1">
             <Button shape="transparent" onClick={() => setVolume(0)}>
@@ -96,10 +94,10 @@ function MediaController() {
             />
           </div>
           <Button shape="transparent" onClick={toggleFullScreen}>
-            <FullScreenIcon size={20} />
+            <FullScreenIcon className="h-2 w-2" />
           </Button>
         </div>
-      )}
+      </div>
     </section>
   );
 }

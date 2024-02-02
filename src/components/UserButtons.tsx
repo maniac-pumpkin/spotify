@@ -2,15 +2,13 @@ import { Link } from "wouter";
 import useLogout from "../hooks/useLogout";
 import { useFormContext } from "../contexts/FormContext";
 import { useAccountContext } from "../contexts/AccountContext";
-import Button from "./Button";
+import Button from "./ui/Button";
 import { UserIcon } from "../icons/BoxIcons";
-import isMobile from "../utils/isMobile";
 
 function UserButtons() {
   const { formAction } = useFormContext();
   const { signedIn } = useAccountContext();
   const logout = useLogout();
-  const itIsMobile = isMobile();
 
   return (
     <div className="flex gap-3">
@@ -25,10 +23,7 @@ function UserButtons() {
           <Button onClick={logout}>Sign out</Button>
           <Link to="/account-settings">
             <Button shape="square">
-              <UserIcon
-                className="fill-pureBlack"
-                size={itIsMobile ? 16 : 20}
-              />
+              <UserIcon className="h-1.6 w-1.6 fill-pureBlack md:h-2 md:w-2" />
             </Button>
           </Link>
         </>
