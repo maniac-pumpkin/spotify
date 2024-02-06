@@ -1,6 +1,6 @@
 import { useLocation } from "wouter";
-import useLocalStorage from "./useLocalStorage";
 import { useAccountContext } from "../contexts/AccountContext";
+import useLocalStorage from "./useLocalStorage";
 
 function useLogout() {
   const [, setLocation] = useLocation();
