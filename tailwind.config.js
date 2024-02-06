@@ -3,7 +3,6 @@ export default {
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
     fontFamily: {
-      regular: "font-book",
       medium: "font-medium",
       bold: "font-bold",
     },
@@ -20,8 +19,8 @@ export default {
     },
     screens: {
       sm: "380px",
-      md: "576px",
-      lg: "778px",
+      md: "700px",
+      lg: "780px",
       xl: "992px",
     },
     colors: {
@@ -34,7 +33,7 @@ export default {
       pureWhite: "#FEFEFE",
       green: "#26BC57",
       whiteBackground: "rgba(221, 221, 221, 0.3)",
-      hoverGreen: "#3Ca214",
+      hoverGreen: "#1E9C48 ",
       hoverWhite: "#dddddd",
     },
     extend: {
