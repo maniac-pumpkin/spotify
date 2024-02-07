@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Button from "./ui/Button";
 import RangeSlider from "./ui/RangeSlider";
+import Button from "./ui/Button";
 import {
   PlayIcon,
   ForwardIcon,
@@ -33,6 +33,7 @@ function MediaController() {
           </figcaption>
         </div>
       </figure>
+
       <div className="md:hidden">
         <div className="flex items-center gap-2">
           <Button shape="transparent">
@@ -51,8 +52,9 @@ function MediaController() {
           </div>
         </div>
       </div>
-      <div className="hidden md:block">
-        <div className="flex max-w-3xl shrink grow flex-col items-center gap-3">
+
+      <div className="hidden shrink grow md:block md:max-w-sm lg:max-w-md xl:max-w-2xl">
+        <div className="flex flex-col items-center gap-3">
           <div className="flex items-center gap-2">
             <Button shape="transparent">
               <BackwardIcon className="h-3 w-3" />
@@ -67,6 +69,7 @@ function MediaController() {
           <RangeSlider className="w-full" />
         </div>
       </div>
+
       <div className="hidden md:block">
         <div className="flex items-center gap-2">
           <Button shape="transparent">
@@ -93,6 +96,7 @@ function MediaController() {
               value={volume}
             />
           </div>
+
           <Button shape="transparent" onClick={toggleFullScreen}>
             <FullScreenIcon className="h-2 w-2" />
           </Button>

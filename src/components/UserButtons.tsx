@@ -1,7 +1,7 @@
 import { Link } from "wouter";
-import useLogout from "../hooks/useLogout";
 import { useFormContext } from "../contexts/FormContext";
 import { useAccountContext } from "../contexts/AccountContext";
+import useLogout from "../hooks/useLogout";
 import Button from "./ui/Button";
 import { UserIcon } from "../icons/BoxIcons";
 

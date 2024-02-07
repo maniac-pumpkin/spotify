@@ -90,7 +90,9 @@ export default {
       backgroundImage: {
         greenGradient: "linear-gradient(180deg, #26BC57 -30.4%, #171717 50%)",
         purpleGradient:
-          "radial-gradient(3664.18% 249.26% at 10% 10.71%, #4100F5 0%, #C1EDD8 100%)",
+          "linear-gradient(140deg, rgba(127,39,255,1) 0%, rgba(196,153,243,1) 80%, rgba(243,204,243,1) 200%)",
+        grayGradient:
+          "linear-gradient(140deg, rgba(64,81,59,1) 0%, rgba(96,153,102,1) 50%, rgba(157,192,139,1) 100%)",
       },
     },
   },

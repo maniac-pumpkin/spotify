@@ -1,27 +1,32 @@
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useFormContext } from "../../contexts/FormContext";
-import { toast } from "react-hot-toast";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import BackdropLayer from "../structural/BackdropLayer";
+import ComboBox from "../ui/ComboBox";
+import Spinner from "../ui/Spinner";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
 import { CheckIcon, CloseIcon } from "../../icons/BoxIcons";
 import { addPlaylist } from "../../services/apiPlaylist";
-import { Tsong } from "../../services/apiSongs";
+import { getSongs } from "../../services/apiSongs";
 import { Tuser } from "../../services/apiUsers";
 
+type TformInfo = {
+  playlistName: string;
+  playlistSongs: number[];
+};
+
 function CreatePlaylistForm() {
-  const [playlistName, setPlaylistName] = useState("");
-  const [playlistSongs, setPlaylistSongs] = useState<number[]>([]);
+  const [formInfo, setFormInfo] = useState<TformInfo>({
+    playlistName: "",
+    playlistSongs: [],
+  });
   const [playlistSearch, setPlaylistSearch] = useState("");
-  const [showCombo, setShowCombo] = useState(false);
   const { formAction } = useFormContext();
   const formRef = useOutsideClick<HTMLFormElement>(
     formAction.hideCreatePlaylistForm,
-  );
-  const comboBoxRef = useOutsideClick<HTMLDivElement>(() =>
-    setShowCombo(false),
   );
   const queryClient = useQueryClient();
 
@@ -29,12 +34,15 @@ function CreatePlaylistForm() {
     queryKey: ["user"],
   });
 
-  const { data: songs } = useQuery<Tsong[]>({
-    queryKey: ["songs"],
+  const { data: songs } = useQuery({
+    queryKey: ["songs", "playlistItem"],
+    queryFn: getSongs,
+    enabled: Boolean(user),
   });
 
-  const { mutate } = useMutation({
-    mutationFn: () => addPlaylist(user?.user_id, playlistName, playlistSongs),
+  const { mutate, isPending } = useMutation({
+    mutationFn: () =>
+      addPlaylist(user?.user_id, formInfo.playlistName, formInfo.playlistSongs),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["playlists"],
@@ -64,60 +72,56 @@ function CreatePlaylistForm() {
           variant="classic"
           label="Playlist name"
           placeholder="Name..."
-          value={playlistName}
-          onChange={(e) => setPlaylistName(e.currentTarget.value)}
+          value={formInfo.playlistName}
+          onInput={(e) =>
+            setFormInfo((p) => ({
+              ...p,
+              playlistName: (e.target as HTMLInputElement).value,
+            }))
+          }
           required
         />
-        <div className="relative w-full" ref={comboBoxRef}>
-          <Input
-            type="search"
-            variant="classic"
-            label="Playlist songs"
-            placeholder="Search..."
-            autoComplete="off"
-            value={playlistSearch}
-            onFocus={() => setShowCombo(true)}
-            onInput={(e) => setPlaylistSearch(e.currentTarget.value)}
-          />
-          {showCombo && (
-            <section className="mt-1 flex h-10 flex-col gap-2 overflow-y-scroll rounded-md bg-slateGray p-2">
-              {songs?.map((song) => (
-                <Button
-                  type="button"
-                  shape="transparent"
-                  className={`justify-between rounded-md p-1 text-pureWhite hover:bg-neroBlack ${
-                    song.title
-                      .toLowerCase()
-                      .includes(playlistSearch.toLowerCase())
-                      ? "flex"
-                      : !playlistSearch
-                        ? "flex"
-                        : "hidden"
-                  }`}
-                  key={song.song_id}
-                  fullWidth
-                  onClick={() =>
-                    setPlaylistSongs((p) =>
-                      p.includes(song.song_id)
-                        ? [...p].filter((id) => song.song_id !== id)
-                        : [...p, song.song_id],
-                    )
-                  }
-                >
-                  <span>
-                    {song.song_id} - {song.title}
-                  </span>
-                  {playlistSongs.includes(song.song_id) && (
-                    <CheckIcon className="fill-pureWhite" />
-                  )}
-                </Button>
-              ))}
-            </section>
-          )}
-        </div>
-
-        <Button type="submit" color="green" fullWidth>
+        <ComboBox inputSearchFn={setPlaylistSearch} inputValue={playlistSearch}>
+          {songs?.map((song) => (
+            <Button
+              type="button"
+              shape="transparent"
+              className={`justify-between rounded-md p-1 text-pureWhite hover:bg-neroBlack ${
+                song.title.toLowerCase().includes(playlistSearch.toLowerCase())
+                  ? "flex"
+                  : !playlistSearch
+                    ? "flex"
+                    : "hidden"
+              }`}
+              key={song.song_id}
+              fullWidth
+              onClick={() =>
+                setFormInfo((p) => ({
+                  ...p,
+                  playlistSongs: p.playlistSongs.includes(song.song_id)
+                    ? [...p.playlistSongs].filter((id) => song.song_id !== id)
+                    : [...p.playlistSongs, song.song_id],
+                }))
+              }
+            >
+              <span>
+                {song.song_id} - {song.title}
+              </span>
+              {formInfo.playlistSongs.includes(song.song_id) && (
+                <CheckIcon className="fill-pureWhite" />
+              )}
+            </Button>
+          ))}
+        </ComboBox>
+        <Button
+          className="gap-1"
+          type="submit"
+          color="green"
+          disabled={isPending}
+          fullWidth
+        >
           Create
+          {isPending && <Spinner className="fill-gunMetalBlack" />}
         </Button>
         <Button
           type="button"

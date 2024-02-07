@@ -1,14 +1,15 @@
-import { useQuery } from "@tanstack/react-query";
 import { useParams } from "wouter";
-import filterURL from "../utils/filterURL";
+import { useQuery } from "@tanstack/react-query";
 import PageHeader from "../components/PageHeader";
 import SongPreMini from "../components/SongPreMini";
 import SongPreSkeleton from "../components/SongPreSkeleton";
-import { getPlaylistSongsByName } from "../services/apiPlaylist";
 import Warning from "../components/Warning";
+import { getPlaylistSongsByName } from "../services/apiPlaylist";
+import filterURL from "../utils/filterURL";
 
 export default function Playlist() {
   const { name } = useParams();
+
   const {
     data: songs,
     isLoading,
@@ -21,7 +22,11 @@ export default function Playlist() {
 
   return (
     <>
-      <PageHeader upperText="Playlist" downerText="Liked Songs" />
+      <PageHeader
+        upperText="Playlist"
+        downerText={filterURL(name)}
+        shape="playlist"
+      />
       <section className="mt-4 flex flex-col gap-4">
         {songs?.map((song) => (
           <SongPreMini
@@ -33,7 +38,8 @@ export default function Playlist() {
           />
         ))}
         {isLoading && <SongPreSkeleton type="mini" quantity={4} />}
-        {isError && <Warning text="Nothing is here to be seen" />}
+        {isError && <Warning text="Something went wrong!" center />}
+        {songs?.length === 0 && <Warning text="Songs not found" center />}
       </section>
     </>
   );

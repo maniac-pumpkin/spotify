@@ -29,9 +29,9 @@ function Button({
 
   const buttonColor =
     color === "white"
-      ? "bg-pureWhite hover:bg-hoverWhite"
+      ? "bg-pureWhite hover:bg-hoverWhite disabled:bg-hoverGreen"
       : color === "green"
-        ? "bg-green hover:bg-hoverGreen"
+        ? "bg-green hover:bg-hoverGreen disabled:bg-hoverGreen"
         : shape === "transparent"
           ? "bg-transparent"
           : "bg-pureWhite hover:bg-hoverWhite";

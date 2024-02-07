@@ -19,7 +19,13 @@ function RangeSlider({ className, ...props }: IrangeSlider) {
   return (
     <input
       type="range"
-      className={`thumb ${className}`}
+      className={`${className}
+      [&::-webkit-slider-thumb]:h-1
+      [&::-webkit-slider-thumb]:w-1
+      [&::-webkit-slider-thumb]:appearance-none
+      [&::-webkit-slider-thumb]:rounded-full
+      [&::-webkit-slider-thumb]:bg-pureWhite
+      `}
       style={styles}
       {...props}
     />

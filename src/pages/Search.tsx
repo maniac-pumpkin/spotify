@@ -1,21 +1,22 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import SongPreSkeleton from "../components/SongPreSkeleton";
 import SongPreMini from "../components/SongPreMini";
 import PageTitle from "../components/PageTitle";
 import Input from "../components/ui/Input";
 import Warning from "../components/Warning";
-import SongPreSkeleton from "../components/SongPreSkeleton";
-import { getSongsByTitle } from "../services/apiSongs";
-import useDebounce from "../hooks/useDebounce";
+import { getSongs } from "../services/apiSongs";
 
 export default function Search() {
-  const [searchText, setSearchText] = useState("");
-  const delayedValue = useDebounce(searchText);
+  const [inputSearch, setInputSearch] = useState("");
 
-  const { data: songs, isLoading } = useQuery({
-    queryKey: ["songs", "searched"],
-    queryFn: () => getSongsByTitle(delayedValue),
-    enabled: Boolean(delayedValue),
+  const {
+    data: songs,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["songs", "search"],
+    queryFn: getSongs,
   });
 
   return (
@@ -25,22 +26,31 @@ export default function Search() {
         type="search"
         placeholder="What do you want to listen to?"
         fullWidth
-        value={searchText}
-        onChange={(e) => setSearchText(e.currentTarget.value)}
+        value={inputSearch}
+        onChange={(e) => setInputSearch(e.currentTarget.value)}
       />
       <section className="mt-4 flex flex-col gap-4">
-        {delayedValue &&
-          songs?.map((song) => (
-            <SongPreMini
-              title={song.title}
-              artist={song.artist}
-              image={song.image_path}
-              song_id={song.song_id}
-              key={song.song_id}
-            />
-          ))}
+        {inputSearch &&
+          songs?.map((song) => {
+            const matchedSong = !song.title
+              .toLowerCase()
+              .includes(inputSearch.toLowerCase());
+            return (
+              <SongPreMini
+                title={song.title}
+                artist={song.artist}
+                image={song.image_path}
+                song_id={song.song_id}
+                key={song.song_id}
+                hidden={matchedSong}
+              />
+            );
+          })}
         {isLoading && <SongPreSkeleton type="mini" quantity={4} />}
-        {!isLoading && !delayedValue && <Warning text="No song found" />}
+        {!isError && !isLoading && !inputSearch && (
+          <Warning text="Type something" center />
+        )}
+        {isError && <Warning text="Something went wrong!" center />}
       </section>
     </>
   );

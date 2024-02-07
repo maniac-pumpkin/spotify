@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
-import Button from "./ui/Button";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useAccountContext } from "../contexts/AccountContext";
+import Button from "./ui/Button";
+import LazyImage from "./ui/LazyImage";
 import { HeartFilledIcon, HeartOutlinedIcon } from "../icons/BoxIcons";
 import { handleLike, getLikedSongBySongID } from "../services/apiLikedSongs";
 import { Tuser } from "../services/apiUsers";
@@ -12,9 +13,10 @@ type TsongPrevMini = {
   artist: string;
   image: string;
   song_id: number;
+  hidden?: boolean;
 };
 
-function SongPreMini({ title, artist, image, song_id }: TsongPrevMini) {
+function SongPreMini({ title, artist, image, song_id, hidden }: TsongPrevMini) {
   const [isLiked, setIsLiked] = useState(false);
   const { signedIn } = useAccountContext();
   const queryClient = useQueryClient();
@@ -52,14 +54,13 @@ function SongPreMini({ title, artist, image, song_id }: TsongPrevMini) {
   }, [liked]);
 
   return (
-    <div className="flex cursor-pointer items-center justify-between">
+    <div
+      className={`flex cursor-pointer items-center justify-between ${
+        hidden && "hidden"
+      }`}
+    >
       <figure className="flex items-center gap-2">
-        <img
-          src={image}
-          alt={title}
-          loading="lazy"
-          className="w-6 rounded-md bg-cover bg-center"
-        />
+        <LazyImage src={image} alt={title} className="h-6 w-6" />
         <div>
           <h3 className="mb-1 font-bold text-md">{title}</h3>
           <figcaption className="text-sm text-silverGray">{artist}</figcaption>

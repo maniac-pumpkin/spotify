@@ -1,5 +1,5 @@
-import { Link } from "wouter";
 import { useState, ComponentType } from "react";
+import { Link } from "wouter";
 import { Ticon } from "../icons/BoxIcons";
 
 type TsideButton = {

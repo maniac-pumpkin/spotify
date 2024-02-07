@@ -1,13 +1,14 @@
 import { FormEvent, useState } from "react";
-import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
+import { useMutation } from "@tanstack/react-query";
 import { useFormContext } from "../../contexts/FormContext";
+import useOutsideClick from "../../hooks/useOutsideClick";
 import BackdropLayer from "../structural/BackdropLayer";
+import Spinner from "../ui/Spinner";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
 import { CloseIcon, SpotifyIcon } from "../../icons/BoxIcons";
-import { addUser } from "../../services/apiUsers";
-import useOutsideClick from "../../hooks/useOutsideClick";
+import { handleSignUp } from "../../services/apiUsers";
 
 function SignUpForm() {
   const [formInfo, setFormInfo] = useState({
@@ -18,8 +19,9 @@ function SignUpForm() {
   const { formAction } = useFormContext();
   const formRef = useOutsideClick<HTMLFormElement>(formAction.hideSignUpForm);
 
-  const { mutate } = useMutation({
-    mutationFn: () => addUser(formInfo.inputUsername, formInfo.inputPassword),
+  const { mutate, isPending } = useMutation({
+    mutationFn: () =>
+      handleSignUp(formInfo.inputUsername, formInfo.inputPassword),
     onSuccess: () => {
       formAction.hideSignUpForm();
       toast.success("You've successfully signed up");
@@ -79,8 +81,15 @@ function SignUpForm() {
           }
           required
         />
-        <Button type="submit" color="green" fullWidth>
+        <Button
+          className="gap-1"
+          type="submit"
+          color="green"
+          disabled={isPending}
+          fullWidth
+        >
           SignUp
+          {isPending && <Spinner className="fill-gunMetalBlack" />}
         </Button>
         <Button
           type="button"

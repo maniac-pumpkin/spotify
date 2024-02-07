@@ -1,15 +1,16 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
+import { toast } from "react-hot-toast";
 import { useQuery } from "@tanstack/react-query";
 import { useFormContext } from "../../contexts/FormContext";
 import { useAccountContext } from "../../contexts/AccountContext";
-import { toast } from "react-hot-toast";
+import useOutsideClick from "../../hooks/useOutsideClick";
+import useLocalStorage from "../../hooks/useLocalStorage";
 import BackdropLayer from "../structural/BackdropLayer";
+import Spinner from "../ui/Spinner";
 import Input from "../ui/Input";
 import Button from "../ui/Button";
 import { CloseIcon, SpotifyIcon } from "../../icons/BoxIcons";
 import { handleSignIn } from "../../services/apiUsers";
-import useLocalStorage from "../../hooks/useLocalStorage";
-import useOutsideClick from "../../hooks/useOutsideClick";
 
 function SignInForm() {
   const [formInfo, setFormInfo] = useState({
@@ -21,7 +22,7 @@ function SignInForm() {
   const { setItem } = useLocalStorage("user");
   const formRef = useOutsideClick<HTMLFormElement>(formAction.hideSignInForm);
 
-  const { refetch } = useQuery({
+  const { refetch, isLoading } = useQuery({
     queryKey: ["user"],
     queryFn: () =>
       handleSignIn(
@@ -37,19 +38,20 @@ function SignInForm() {
           toast.error("Credentials are incorrect");
         },
       ),
-    staleTime: Infinity,
     enabled: false,
   });
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    refetch();
+  };
 
   return (
     <BackdropLayer>
       <form
         id="sign-in-form"
         className="relative flex w-30 flex-col items-center justify-center gap-4 rounded-md bg-gunMetalBlack p-5 md:w-50"
-        onSubmit={(e) => {
-          e.preventDefault();
-          refetch();
-        }}
+        onSubmit={handleSubmit}
         ref={formRef}
       >
         <div className="mb-5">
@@ -77,8 +79,15 @@ function SignInForm() {
           }
           required
         />
-        <Button type="submit" color="green" fullWidth>
+        <Button
+          className="gap-1"
+          type="submit"
+          color="green"
+          disabled={isLoading}
+          fullWidth
+        >
           SignIn
+          {isLoading && <Spinner className="fill-gunMetalBlack" />}
         </Button>
         <Button
           type="button"

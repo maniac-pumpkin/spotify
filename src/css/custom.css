@@ -1,8 +1,0 @@
-.thumb::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 1rem;
-  height: 1rem;
-  background-color: #fefefe;
-  border-radius: 100rem;
-}

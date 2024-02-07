@@ -1,11 +1,9 @@
 import useLogout from "../hooks/useLogout";
 import PageTitle from "../components/PageTitle";
 import Button from "../components/ui/Button";
-import isMobile from "../utils/isMobile";
 
 export default function AccountSettings() {
   const logout = useLogout();
-  const itIsMobile = isMobile();
 
   return (
     <>
@@ -13,16 +11,16 @@ export default function AccountSettings() {
       <p className="mb-4 text-sm md:text-md">
         You are currently on the Spotify Premium plan!
       </p>
-      {itIsMobile && (
+      <div className="md:hidden">
         <Button color="green" fullWidth onClick={logout}>
           Logout
         </Button>
-      )}
-      {!itIsMobile && (
+      </div>
+      <div className="hidden md:block">
         <Button className="w-20" color="green" onClick={logout}>
           Logout
         </Button>
-      )}
+      </div>
     </>
   );
 }

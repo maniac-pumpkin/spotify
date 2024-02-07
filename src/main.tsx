@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import ErrorBoundary from "./components/helper/ErrorBoundary.tsx";
+import ErrorBoundaryPage from "./pages/ErrorBoundaryPage.tsx";
 import App from "./App.tsx";
 import "./css/index.css";
 
@@ -18,13 +20,15 @@ const queryClient = new QueryClient({
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <AccountProvider>
-      <FormProvider>
-        <QueryClientProvider client={queryClient}>
-          <App />
-          <ReactQueryDevtools buttonPosition="top-left" />
-        </QueryClientProvider>
-      </FormProvider>
-    </AccountProvider>
+    <ErrorBoundary fallback={<ErrorBoundaryPage />}>
+      <AccountProvider>
+        <FormProvider>
+          <QueryClientProvider client={queryClient}>
+            <App />
+            <ReactQueryDevtools buttonPosition="bottom-left" />
+          </QueryClientProvider>
+        </FormProvider>
+      </AccountProvider>
+    </ErrorBoundary>
   </React.StrictMode>,
 );
