@@ -9,7 +9,7 @@ export type Tplaylist = {
   created_at?: string;
 };
 
-export const getPlaylists = async () => {
+export const getPlaylists = async (userID: number | undefined) => {
   const options = {
     method: "GET",
     headers: {
@@ -17,13 +17,16 @@ export const getPlaylists = async () => {
       Authorization: AUTHkey,
     },
   };
-  const response = await fetch(`${URL}/rest/v1/playlists?select=*`, options);
+  if (!userID) throw new Error("User not found");
+  const response = await fetch(
+    `${URL}/rest/v1/playlists?user_id=eq.${userID}&select=*`,
+    options,
+  );
   const data: Tplaylist[] = await response.json();
   return data;
 };
 
 export const getPlaylistSongsByName = async (name: string | undefined) => {
-  if (!name) throw new Error("Playlist name not found");
   const options = {
     method: "GET",
     headers: {
@@ -31,15 +34,14 @@ export const getPlaylistSongsByName = async (name: string | undefined) => {
       Authorization: AUTHkey,
     },
   };
+  if (!name) throw new Error("Playlist name not found");
   const response = await fetch(
     `${URL}/rest/v1/playlists?name=eq.${name}&select=*`,
     options,
   );
-  const songs = await getSongs();
   const playlist: Tplaylist[] = await response.json();
-  return songs.filter(
-    (song) => playlist.at(0)?.songs.indexOf(song.song_id) !== -1,
-  );
+  const songs = await getSongs();
+  return songs.filter((song) => playlist.at(0)?.songs.includes(song.song_id));
 };
 
 export const addPlaylist = async (
@@ -62,6 +64,7 @@ export const addPlaylist = async (
     }),
   };
   if (!userID) throw new Error("User not found");
+  if (!songs.length) throw new Error("Select at least one song");
   const response = await fetch(`${URL}/rest/v1/playlists`, options);
   if (!response.ok) throw new Error("Failed to create playlist");
 };
@@ -74,7 +77,6 @@ export const deletePlaylist = async (playlistID: number) => {
       Authorization: AUTHkey,
     },
   };
-  if (!playlistID) throw new Error("User ID is required");
   const response = await fetch(
     `${URL}/rest/v1/playlists?playlist_id=eq.${playlistID}`,
     options,

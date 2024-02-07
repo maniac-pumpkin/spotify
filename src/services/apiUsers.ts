@@ -9,7 +9,7 @@ export type Tuser = {
   created_at?: string;
 };
 
-const getUsers = async () => {
+const getUsers = async (username?: string | undefined) => {
   const options = {
     method: "GET",
     headers: {
@@ -17,13 +17,16 @@ const getUsers = async () => {
       Authorization: AUTHkey,
     },
   };
-  const response = await fetch(`${URL}/rest/v1/users?select=*`, options);
+  const getUsersURL = username
+    ? `${URL}/rest/v1/users?username=eq.${username}&select=*`
+    : `${URL}/rest/v1/users?select=*`;
+  const response = await fetch(getUsersURL, options);
   if (!response.ok) return;
   const data: Tuser[] = await response.json();
   return data;
 };
 
-export const addUser = async (username: string, password: string) => {
+export const handleSignUp = async (username: string, password: string) => {
   const options = {
     method: "POST",
     headers: {
@@ -37,9 +40,8 @@ export const addUser = async (username: string, password: string) => {
       password,
     }),
   };
-  const users = await getUsers();
-  const existingUser = users?.find((user) => user.username === username);
-  if (existingUser) throw new Error("Username is already taken");
+  const user = await getUsers(username);
+  if (user?.length) throw new Error("Username is already taken");
   if (!validateUsername(username))
     throw new Error(
       "Username must consist of English characters and be at least 5 characters long",
@@ -52,21 +54,17 @@ export const addUser = async (username: string, password: string) => {
 };
 
 export const handleSignIn = async (
-  inputUsername: string,
-  inputPassword: string,
+  username: string,
+  password: string,
   onSuccessFn: (user: Tuser) => void,
   onFailureFn: () => void,
 ) => {
-  const users = await getUsers();
-  const matchedUser = users?.find((user) => {
-    const un = user.username === inputUsername;
-    const pw = user.password === inputPassword;
-    if (un && pw) return user;
-  });
-  if (!matchedUser) {
-    onFailureFn();
-    return;
+  const user = await getUsers(username);
+  const matchedUser = user?.length && user.at(0)?.password === password;
+  console.log(matchedUser);
+  if (matchedUser) {
+    onSuccessFn(user.at(0)!);
+    return matchedUser;
   }
-  onSuccessFn(matchedUser);
-  return matchedUser;
+  onFailureFn();
 };

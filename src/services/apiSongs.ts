@@ -21,12 +21,3 @@ export const getSongs = async () => {
   const data: Tsong[] = await response.json();
   return data;
 };
-
-export const getSongsByTitle = async (title: string) => {
-  const songs = await getSongs();
-  const songTitle = title.toLowerCase();
-  const filteredSongs = songs.filter((song) =>
-    song.title.toLowerCase().includes(songTitle),
-  );
-  return filteredSongs;
-};

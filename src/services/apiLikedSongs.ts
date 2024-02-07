@@ -7,28 +7,29 @@ export type TlikedSong = {
   created_at?: string;
 };
 
-const getLikedSongs = async () => {
+const getLikedSongs = async (userID: number) => {
   const options = {
     method: "GET",
     headers: {
       apikey: KEY,
       Authorization: AUTHkey,
+      Range: "0-9",
     },
   };
-  const response = await fetch(`${URL}/rest/v1/liked_songs?select=*`, options);
+  const response = await fetch(
+    `${URL}/rest/v1/liked_songs?user_id=eq.${userID}&select=*`,
+    options,
+  );
   const data: TlikedSong[] = await response.json();
-  return data;
+  return data.map((song) => song.song_id);
 };
 
 export const getLikedSongsByUserID = async (userID: number | undefined) => {
-  if (!userID) return;
-  const allLikedSongs = await getLikedSongs();
-  const filteredLikedSongs = allLikedSongs
-    .filter((song) => song.user_id === userID)
-    .map((each) => each.song_id);
+  if (!userID) throw new Error("User not found");
+  const allLikedSongs = await getLikedSongs(userID);
   const songs = await getSongs();
   const likedSongs = songs.filter((song) =>
-    filteredLikedSongs.includes(song.song_id),
+    allLikedSongs.includes(song.song_id),
   );
   return likedSongs;
 };
@@ -37,13 +38,13 @@ export const getLikedSongBySongID = async (
   userID: number | undefined,
   songID: number,
 ) => {
-  if (!userID) return;
+  if (!userID) throw new Error("User not found");
   const likedSongs = await getLikedSongsByUserID(userID);
   const matchedSong = likedSongs?.find((song) => songID === song.song_id);
   return Boolean(matchedSong);
 };
 
-const likeSong = async (userID: number | undefined, songID: number) => {
+const likeSong = async (userID: number, songID: number) => {
   const options = {
     method: "POST",
     headers: {
@@ -57,12 +58,11 @@ const likeSong = async (userID: number | undefined, songID: number) => {
       song_id: songID,
     }),
   };
-  if (!userID) throw new Error("User ID is required");
   const response = await fetch(`${URL}/rest/v1/liked_songs`, options);
   if (!response.ok) throw new Error("Failed to like song");
 };
 
-const unLikeSong = async (userID: number | undefined, songID: number) => {
+const unLikeSong = async (userID: number, songID: number) => {
   const options = {
     method: "DELETE",
     headers: {
@@ -70,7 +70,6 @@ const unLikeSong = async (userID: number | undefined, songID: number) => {
       Authorization: AUTHkey,
     },
   };
-  if (!userID) throw new Error("User ID is required");
   const response = await fetch(
     `${URL}/rest/v1/liked_songs?user_id=eq.${userID}&song_id=eq.${songID}`,
     options,
@@ -82,11 +81,9 @@ export const handleLike = async (
   userID: number | undefined,
   songID: number,
 ) => {
-  const likedSongs = await getLikedSongs();
-  const existingSong = likedSongs.find(
-    (song) => song.user_id === userID && song.song_id === songID,
-  );
-  if (existingSong) {
+  if (!userID) throw new Error("User not found");
+  const likedSongs = await getLikedSongs(userID);
+  if (likedSongs.includes(songID)) {
     await unLikeSong(userID, songID);
     return false;
   }
