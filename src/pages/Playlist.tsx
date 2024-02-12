@@ -1,8 +1,8 @@
 import { useParams } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import PageHeader from "../components/PageHeader";
-import SongPreMini from "../components/SongPreMini";
-import SongPreSkeleton from "../components/SongPreSkeleton";
+import SongPreview from "../components/SongPreview";
+import Skeleton from "../components/Skeleton";
 import Warning from "../components/Warning";
 import { getPlaylistSongsByName } from "../services/apiPlaylist";
 import filterURL from "../utils/filterURL";
@@ -29,15 +29,9 @@ export default function Playlist() {
       />
       <section className="mt-4 flex flex-col gap-4">
         {songs?.map((song) => (
-          <SongPreMini
-            title={song.title}
-            artist={song.artist}
-            image={song.image_path}
-            song_id={song.song_id}
-            key={song.song_id}
-          />
+          <SongPreview type="mini" song={song} key={song.song_id} />
         ))}
-        {isLoading && <SongPreSkeleton type="mini" quantity={4} />}
+        {isLoading && <Skeleton type="songPreview_mini" quantity={4} />}
         {isError && <Warning text="Something went wrong!" center />}
         {songs?.length === 0 && <Warning text="Songs not found" center />}
       </section>

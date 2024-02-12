@@ -84,15 +84,18 @@ export default {
       borderRadius: {
         md: "0.5rem",
       },
+      boxShadow: {
+        thinBorder: "0 0 0 0.02rem #9c9c9c",
+      },
       animation: {
         "spin-slow": "spin 3s linear infinite",
       },
       backgroundImage: {
         greenGradient: "linear-gradient(180deg, #26BC57 -30.4%, #171717 50%)",
+        yellowGradient:
+          "linear-gradient(135deg, #61876e 0%, #61876e 7.23%, #779878 39.08%, #a6bb8d 87.2%, #b7d1b7 100%, #a6bb8d 100%)",
         purpleGradient:
-          "linear-gradient(140deg, rgba(127,39,255,1) 0%, rgba(196,153,243,1) 80%, rgba(243,204,243,1) 200%)",
-        grayGradient:
-          "linear-gradient(140deg, rgba(64,81,59,1) 0%, rgba(96,153,102,1) 50%, rgba(157,192,139,1) 100%)",
+          "linear-gradient(135deg, #a31acb 0%, #9f70fd 60%, #c1edd8 120%)",
       },
     },
   },

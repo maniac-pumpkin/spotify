@@ -61,10 +61,9 @@ export const handleSignIn = async (
 ) => {
   const user = await getUsers(username);
   const matchedUser = user?.length && user.at(0)?.password === password;
-  console.log(matchedUser);
   if (matchedUser) {
     onSuccessFn(user.at(0)!);
-    return matchedUser;
+    return user.at(0);
   }
   onFailureFn();
 };

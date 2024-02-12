@@ -10,7 +10,7 @@ function Warning({ text, center }: Twarning) {
 
   return (
     <div className={`max-w-lg ${center ? centerClass : regularClass}`}>
-      <span className="text-center font-bold text-xl">{text}</span>
+      <span className="text-center font-bold text-lg md:text-xl">{text}</span>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useAccountContext } from "../contexts/AccountContext";
-import SongPreSkeleton from "../components/SongPreSkeleton";
+import Skeleton from "../components/Skeleton";
 import LikedSongsLink from "../components/LikedSongsLink";
 import SongPreview from "../components/SongPreview";
 import PageTitle from "../components/PageTitle";
@@ -35,14 +35,9 @@ export default function Home() {
       )}
       {!isError && (
         <section className="mt-4 grid grid-cols-2 place-items-center gap-4 lg:grid-cols-3 xl:grid-cols-4">
-          {isLoading && <SongPreSkeleton type="normal" quantity={8} />}
+          {isLoading && <Skeleton type="songPreview_normal" quantity={8} />}
           {songs?.map((song) => (
-            <SongPreview
-              title={song.title}
-              artist={song.artist}
-              image={song.image_path}
-              key={song.song_id}
-            />
+            <SongPreview type="normal" song={song} key={song.song_id} />
           ))}
         </section>
       )}

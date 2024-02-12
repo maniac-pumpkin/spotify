@@ -1,6 +1,6 @@
 import { FormEvent, useState } from "react";
 import { toast } from "react-hot-toast";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useFormContext } from "../../contexts/FormContext";
 import { useAccountContext } from "../../contexts/AccountContext";
 import useOutsideClick from "../../hooks/useOutsideClick";
@@ -17,6 +17,7 @@ function SignInForm() {
     inputUsername: "",
     inputPassword: "",
   });
+  const queryClient = useQueryClient();
   const { formAction } = useFormContext();
   const { accountAction } = useAccountContext();
   const { setItem } = useLocalStorage("user");
@@ -30,6 +31,9 @@ function SignInForm() {
         formInfo.inputPassword,
         (user) => {
           setItem(user);
+          queryClient.invalidateQueries({
+            queryKey: ["playlists"],
+          });
           formAction.hideSignInForm();
           accountAction.accountSignIn();
           toast.success("Successfully signed in");

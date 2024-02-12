@@ -1,7 +1,12 @@
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useContext, useMemo, useReducer } from "react";
+import {
+  createContext,
+  useContext,
+  useMemo,
+  useReducer,
+  PropsWithChildren,
+} from "react";
 import { Taction } from "./types";
-import { Tprovider } from "./types";
 
 const values = {
   signedIn: false,
@@ -42,7 +47,7 @@ export const useAccountContext = () => {
   return context;
 };
 
-export default function AccountProvider({ children }: Tprovider) {
+export default function AccountProvider({ children }: PropsWithChildren) {
   const [state, dispatch] = useReducer(reducer, values);
 
   const accountAction = useMemo(

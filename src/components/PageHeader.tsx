@@ -15,7 +15,7 @@ function PageHeader({ downerText, upperText, shape }: TpageHeader) {
           shape === "likedMusic"
             ? "bg-purpleGradient"
             : shape === "playlist"
-              ? "bg-grayGradient"
+              ? "bg-yellowGradient"
               : ""
         }`}
       >

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import SongPreSkeleton from "../components/SongPreSkeleton";
-import SongPreMini from "../components/SongPreMini";
+import Skeleton from "../components/Skeleton";
+import SongPreview from "../components/SongPreview";
 import PageTitle from "../components/PageTitle";
 import Input from "../components/ui/Input";
 import Warning from "../components/Warning";
@@ -36,17 +36,15 @@ export default function Search() {
               .toLowerCase()
               .includes(inputSearch.toLowerCase());
             return (
-              <SongPreMini
-                title={song.title}
-                artist={song.artist}
-                image={song.image_path}
-                song_id={song.song_id}
-                key={song.song_id}
+              <SongPreview
+                type="mini"
                 hidden={matchedSong}
+                song={song}
+                key={song.song_id}
               />
             );
           })}
-        {isLoading && <SongPreSkeleton type="mini" quantity={4} />}
+        {isLoading && <Skeleton type="songPreview_mini" quantity={4} />}
         {!isError && !isLoading && !inputSearch && (
           <Warning text="Type something" center />
         )}

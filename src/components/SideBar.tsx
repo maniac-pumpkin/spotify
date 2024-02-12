@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useFormContext } from "../contexts/FormContext";
 import { useAccountContext } from "../contexts/AccountContext";
 import PlaylistItem from "./PlaylistItem";
+import Skeleton from "./Skeleton";
 import SideButton from "./SideButton";
 import Button from "./ui/Button";
 import Warning from "./Warning";
@@ -24,7 +25,11 @@ function SideBar() {
     queryKey: ["user"],
   });
 
-  const { data: playlists } = useQuery({
+  const {
+    data: playlists,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ["playlists"],
     queryFn: () => getPlaylists(user?.user_id),
     enabled: Boolean(user),
@@ -58,8 +63,11 @@ function SideBar() {
             </Button>
           )}
         </div>
-        <section className="flex flex-col gap-4">
-          {playlists?.length !== 0 &&
+        <section className="flex flex-col gap-2">
+          {!isLoading &&
+            !isError &&
+            signedIn &&
+            playlists?.length !== 0 &&
             playlists?.map((list) => (
               <PlaylistItem
                 name={list.name}
@@ -67,8 +75,10 @@ function SideBar() {
                 id={list.playlist_id}
               />
             ))}
+          {isLoading && <Skeleton type="playlist" quantity={4} />}
         </section>
         {signedIn && playlists?.length === 0 && <Warning text="No playlist" />}
+        {isError && <Warning text="Something went wrong!" />}
         {!signedIn && <Warning text="Sign in to create playlists" />}
       </div>
     </section>

@@ -9,6 +9,7 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import AccountProvider from "./contexts/AccountContext.tsx";
 import FormProvider from "./contexts/FormContext.tsx";
+import PlayerProvider from "./contexts/PlayerContext.tsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -24,8 +25,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <AccountProvider>
         <FormProvider>
           <QueryClientProvider client={queryClient}>
-            <App />
-            <ReactQueryDevtools buttonPosition="bottom-left" />
+            <PlayerProvider>
+              <App />
+            </PlayerProvider>
+            <ReactQueryDevtools buttonPosition="top-right" />
           </QueryClientProvider>
         </FormProvider>
       </AccountProvider>

@@ -1,7 +1,12 @@
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useContext, useMemo, useReducer } from "react";
+import {
+  createContext,
+  useContext,
+  useMemo,
+  useReducer,
+  PropsWithChildren,
+} from "react";
 import { Taction } from "./types";
-import { Tprovider } from "./types";
 
 const values = {
   forms: {
@@ -58,7 +63,7 @@ export const useFormContext = () => {
   return context;
 };
 
-export default function FormProvider({ children }: Tprovider) {
+export default function FormProvider({ children }: PropsWithChildren) {
   const [state, dispatch] = useReducer(reducer, values);
 
   const formAction = useMemo(

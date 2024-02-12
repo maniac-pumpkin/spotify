@@ -49,7 +49,7 @@ export default function App() {
       </div>
       <FormPopup />
       <section
-        className={`relative h-full w-full overflow-y-scroll rounded-md ${
+        className={`relative h-full w-full overflow-y-scroll rounded-md pb-5 ${
           location === "/" ? "bg-greenGradient" : "bg-charcoalBlack"
         }`}
       >

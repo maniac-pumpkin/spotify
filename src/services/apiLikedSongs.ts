@@ -7,7 +7,7 @@ export type TlikedSong = {
   created_at?: string;
 };
 
-const getLikedSongs = async (userID: number) => {
+const getLikedSongs = async (userID: number): Promise<number[]> => {
   const options = {
     method: "GET",
     headers: {
@@ -74,9 +74,10 @@ const unLikeSong = async (userID: number, songID: number) => {
     `${URL}/rest/v1/liked_songs?user_id=eq.${userID}&song_id=eq.${songID}`,
     options,
   );
-  if (!response.ok) throw new Error("Failed to delete liked song");
+  if (!response.ok) throw new Error("Failed to unlike song");
 };
 
+// FIXME: Conflict
 export const handleLike = async (
   userID: number | undefined,
   songID: number,

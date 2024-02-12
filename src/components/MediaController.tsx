@@ -54,7 +54,7 @@ function MediaController() {
       </div>
 
       <div className="hidden shrink grow md:block md:max-w-sm lg:max-w-md xl:max-w-2xl">
-        <div className="flex flex-col items-center gap-3">
+        <div className="flex flex-col items-center gap-2">
           <div className="flex items-center gap-2">
             <Button shape="transparent">
               <BackwardIcon className="h-3 w-3" />
@@ -96,7 +96,6 @@ function MediaController() {
               value={volume}
             />
           </div>
-
           <Button shape="transparent" onClick={toggleFullScreen}>
             <FullScreenIcon className="h-2 w-2" />
           </Button>

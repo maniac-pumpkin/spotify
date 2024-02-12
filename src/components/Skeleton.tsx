@@ -1,10 +1,18 @@
 type TsongPreSkeleton = {
   quantity: number;
-  type: "mini" | "normal";
+  type: "songPreview_mini" | "songPreview_normal" | "playlist";
 };
 
-function SongPreSkeleton({ type, quantity }: TsongPreSkeleton) {
-  if (type === "mini")
+function Skeleton({ type, quantity }: TsongPreSkeleton) {
+  if (type === "playlist")
+    return Array.from({ length: quantity }, (_, i) => (
+      <div className="flex animate-pulse items-center gap-2" key={i + 1}>
+        <div className="h-4 w-4 rounded-md bg-slateGray"></div>
+        <div className="h-1.4 w-8 rounded-md bg-slateGray"></div>
+      </div>
+    ));
+
+  if (type === "songPreview_mini")
     return Array.from({ length: quantity }, (_, i) => (
       <div className="flex animate-pulse items-center gap-2" key={i + 1}>
         <div className="h-5 w-5 rounded-md bg-slateGray"></div>
@@ -15,7 +23,7 @@ function SongPreSkeleton({ type, quantity }: TsongPreSkeleton) {
       </div>
     ));
 
-  if (type === "normal")
+  if (type === "songPreview_normal")
     return Array.from({ length: quantity }, (_, i) => (
       <div
         className="flex h-20 w-full animate-pulse flex-col rounded-md bg-gunMetalBlack p-2 lg:h-25 xl:h-30"
@@ -28,4 +36,4 @@ function SongPreSkeleton({ type, quantity }: TsongPreSkeleton) {
     ));
 }
 
-export default SongPreSkeleton;
+export default Skeleton;
