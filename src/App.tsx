@@ -1,8 +1,9 @@
-import { Suspense, lazy, useLayoutEffect } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import { Route, useLocation } from "wouter";
 import { ToastOptions, Toaster } from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
 import { useAccountContext } from "./contexts/AccountContext";
+import { usePlayerContext } from "./contexts/PlayerContext";
 import useLocalStorage from "./hooks/useLocalStorage";
 import NavigateToHome from "./components/helper/NavigateToHome";
 
@@ -30,11 +31,12 @@ const toastOptions: ToastOptions = {
 
 export default function App() {
   const { signedIn, accountAction } = useAccountContext();
+  const { audioId } = usePlayerContext();
   const { getItem } = useLocalStorage("user");
   const queryClient = useQueryClient();
   const [location] = useLocation();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const item = getItem();
     if (item) {
       queryClient.setQueryData(["user"], item);
@@ -43,7 +45,7 @@ export default function App() {
   }, [queryClient, accountAction, getItem]);
 
   return (
-    <div className="flex h-screen gap-2 p-2 pb-[9rem]">
+    <div className={`flex h-screen gap-2 p-2 ${audioId !== 0 && "pb-[9rem]"}`}>
       <div className="hidden md:block">
         <SideBar />
       </div>
@@ -75,10 +77,16 @@ export default function App() {
           </Suspense>
         </Main>
       </section>
-      <Footer>
-        {signedIn && <MediaController />}
-        {!signedIn && <BottomPreview />}
-      </Footer>
+      {signedIn && audioId !== 0 && (
+        <Footer>
+          <MediaController />
+        </Footer>
+      )}
+      {!signedIn && (
+        <Footer>
+          <BottomPreview />
+        </Footer>
+      )}
       <Toaster toastOptions={toastOptions} />
     </div>
   );
