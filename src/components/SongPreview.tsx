@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 import { toast } from "react-hot-toast";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useAccountContext } from "../contexts/AccountContext";
@@ -47,7 +47,7 @@ function SongPreview({ type, hidden, song }: IsongPreview) {
     },
   });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setIsLiked(liked ? true : false);
   }, [liked]);
 
@@ -57,8 +57,7 @@ function SongPreview({ type, hidden, song }: IsongPreview) {
   };
 
   const handleClick = () => {
-    playerAction.setAudioSrc(song_path);
-    playerAction.play();
+    playerAction.playAudio(song_id, song_path);
   };
 
   if (type === "mini")
@@ -86,6 +85,7 @@ function SongPreview({ type, hidden, song }: IsongPreview) {
         )}
       </div>
     );
+
   if (type === "normal")
     return (
       <figure
@@ -94,10 +94,10 @@ function SongPreview({ type, hidden, song }: IsongPreview) {
       >
         <LazyImage src={image_path} alt={title} />
         <div className="mt-3">
-          <h3 className="mb-1 font-bold text-xsm md:text-sm lg:text-md">
+          <h3 className="mb-1 line-clamp-1 font-bold text-xsm md:text-sm lg:text-md">
             {title}
           </h3>
-          <figcaption className="text-tn text-silverGray md:text-xsm lg:text-sm">
+          <figcaption className="line-clamp-1 text-tn text-silverGray md:text-xsm lg:text-sm">
             {artist}
           </figcaption>
         </div>
