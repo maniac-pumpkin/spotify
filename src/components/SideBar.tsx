@@ -63,7 +63,7 @@ function SideBar() {
             </Button>
           )}
         </div>
-        <section className="flex flex-col gap-2">
+        <section className="flex flex-col gap-1">
           {!isLoading &&
             !isError &&
             signedIn &&
