@@ -18,7 +18,7 @@ export default function AccountSettings() {
       </div>
       <div className="hidden md:block">
         <Button className="w-20" color="green" onClick={signOut}>
-          signOut
+          Sign out
         </Button>
       </div>
     </>
