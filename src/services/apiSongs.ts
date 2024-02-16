@@ -19,5 +19,6 @@ export const getSongs = async () => {
   };
   const response = await fetch(`${URL}/rest/v1/songs?select=*`, options);
   const data: Tsong[] = await response.json();
-  return data;
+  const songs = data.sort((a, b) => a.song_id - b.song_id);
+  return songs;
 };
