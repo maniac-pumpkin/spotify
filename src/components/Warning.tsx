@@ -6,11 +6,13 @@ type Twarning = {
 function Warning({ text, center }: Twarning) {
   const centerClass =
     "absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]";
-  const regularClass = "w-full h-full flex items-center justify-center";
+  const regularClass = "w-full h-full flex items-center";
 
   return (
-    <div className={`max-w-lg ${center ? centerClass : regularClass}`}>
-      <span className="text-center font-bold text-lg md:text-xl">{text}</span>
+    <div className={`max-w-xs ${center ? centerClass : regularClass}`}>
+      <span className="text-center font-bold text-md text-silverGray md:text-lg">
+        {text}
+      </span>
     </div>
   );
 }
