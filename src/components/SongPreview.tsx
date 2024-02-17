@@ -63,7 +63,8 @@ function SongPreview({ type, hidden, song }: IsongPreview) {
   };
 
   const handleClick = () => {
-    playerAction.playAudio(song_id, song_path);
+    if (signedIn) playerAction.playAudio(song_id, song_path);
+    else toast.error("You must sign in to play musics");
   };
 
   if (type === "mini")
