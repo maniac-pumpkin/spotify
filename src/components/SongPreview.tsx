@@ -3,9 +3,14 @@ import { toast } from "react-hot-toast";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useAccountContext } from "../contexts/AccountContext";
 import { usePlayerContext } from "../contexts/PlayerContext";
-import Button from "./ui/Button";
 import LazyImage from "./ui/LazyImage";
-import { HeartFilledIcon, HeartOutlinedIcon } from "../icons/BoxIcons";
+import Button from "./ui/Button";
+import {
+  HeartFilledIcon,
+  HeartOutlinedIcon,
+  PauseIcon,
+  PlayIcon,
+} from "../icons/BoxIcons";
 import { handleLike, getLikedSongBySongID } from "../services/apiLikedSongs";
 import { Tuser } from "../services/apiUsers";
 import { Tsong } from "../services/apiSongs";
@@ -19,9 +24,10 @@ type IsongPreview = {
 function SongPreview({ type, hidden, song }: IsongPreview) {
   const { title, artist, image_path, song_id, song_path } = song;
 
+  const [hover, setHover] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const { signedIn } = useAccountContext();
-  const { playerAction } = usePlayerContext();
+  const { playerAction, isPlaying, audioId } = usePlayerContext();
   const queryClient = useQueryClient();
 
   const { data: user } = useQuery<Tuser>({
@@ -63,15 +69,38 @@ function SongPreview({ type, hidden, song }: IsongPreview) {
   if (type === "mini")
     return (
       <div
-        className={`flex cursor-pointer items-center justify-between ${
+        className={`flex items-center justify-between rounded-md p-1 transition hover:bg-neroBlack ${
           hidden && "hidden"
         }`}
-        onClick={handleClick}
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
       >
         <figure className="flex items-center gap-2">
-          <LazyImage src={image_path} alt={title} className="h-6 w-6" />
+          <div className="relative h-6 w-6">
+            <LazyImage src={image_path} alt={title} className="h-full w-full" />
+            {hover && (
+              <div
+                className="absolute inset-0 flex cursor-pointer items-center justify-center rounded-md  backdrop-blur-sm"
+                onClick={handleClick}
+              >
+                <Button shape="transparent">
+                  {isPlaying && song_id === audioId ? (
+                    <PauseIcon className="h-4 w-4 fill-pureWhite" />
+                  ) : (
+                    <PlayIcon className="h-4 w-4 fill-pureWhite" />
+                  )}
+                </Button>
+              </div>
+            )}
+          </div>
           <div>
-            <h3 className="mb-1 font-bold text-md">{title}</h3>
+            <h3
+              className={`mb-1 font-bold text-md ${
+                audioId === song_id && "text-green"
+              }`}
+            >
+              {title}
+            </h3>
             <figcaption className="text-sm text-silverGray">
               {artist}
             </figcaption>
@@ -90,11 +119,32 @@ function SongPreview({ type, hidden, song }: IsongPreview) {
     return (
       <figure
         className="w-fit cursor-pointer rounded-md bg-gunMetalBlack p-2 shadow-thinBorder transition hover:bg-neroBlack"
-        onClick={handleClick}
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
       >
-        <LazyImage src={image_path} alt={title} />
+        <div className="relative">
+          <LazyImage src={image_path} alt={title} />
+          {hover && (
+            <div
+              className="absolute inset-0 flex cursor-pointer items-center justify-center rounded-md  backdrop-blur-sm"
+              onClick={handleClick}
+            >
+              <Button shape="transparent">
+                {isPlaying && song_id === audioId ? (
+                  <PauseIcon className="h-4 w-4 fill-pureWhite" />
+                ) : (
+                  <PlayIcon className="h-4 w-4 fill-pureWhite" />
+                )}
+              </Button>
+            </div>
+          )}
+        </div>
         <div className="mt-3">
-          <h3 className="mb-1 line-clamp-1 font-bold text-xsm md:text-sm lg:text-md">
+          <h3
+            className={`mb-1 line-clamp-1 font-bold text-xsm md:text-sm lg:text-md ${
+              audioId === song_id && "text-green"
+            }`}
+          >
             {title}
           </h3>
           <figcaption className="line-clamp-1 text-tn text-silverGray md:text-xsm lg:text-sm">
