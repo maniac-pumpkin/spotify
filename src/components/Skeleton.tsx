@@ -26,7 +26,7 @@ function Skeleton({ type, quantity }: TsongPreSkeleton) {
   if (type === "songPreview_normal")
     return Array.from({ length: quantity }, (_, i) => (
       <div
-        className="flex h-20 w-full animate-pulse flex-col rounded-md bg-gunMetalBlack p-2 lg:h-25 xl:h-30"
+        className="flex h-20 w-full animate-pulse flex-col rounded-md bg-gunMetalBlack p-2 sm:h-25 md:h-20 lg:h-18 xl:h-20 min-[1200px]:h-25"
         key={i + 1}
       >
         <div className="w-full grow rounded-md bg-slateGray"></div>
