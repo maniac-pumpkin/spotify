@@ -46,9 +46,9 @@ export default function Search() {
           })}
         {isLoading && <Skeleton type="songPreview_mini" quantity={4} />}
         {!isError && !isLoading && !inputSearch && (
-          <Warning text="Type something" center />
+          <Warning text="Type something" />
         )}
-        {isError && <Warning text="Something went wrong!" center />}
+        {isError && <Warning text="Something went wrong!" />}
       </section>
     </>
   );

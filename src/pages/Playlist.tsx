@@ -32,8 +32,8 @@ export default function Playlist() {
           <SongPreview type="mini" song={song} key={song.song_id} />
         ))}
         {isLoading && <Skeleton type="songPreview_mini" quantity={4} />}
-        {isError && <Warning text="Something went wrong!" center />}
-        {songs?.length === 0 && <Warning text="Songs not found" center />}
+        {isError && <Warning text="Something went wrong!" />}
+        {songs?.length === 0 && <Warning text="Songs not found" />}
       </section>
     </>
   );
