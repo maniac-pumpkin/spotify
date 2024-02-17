@@ -90,7 +90,10 @@ export default function PlayerProvider({ children }: PropsWithChildren) {
   const playerAction = useMemo(
     () => ({
       playAudio(audioId: number, audioSrc: string) {
-        if (audioId === state.audioId) return;
+        if (audioId === state.audioId) {
+          state.isPlaying ? this.pauseAudio() : this.resumeAudio();
+          return;
+        }
         dispatch({ type: "player/setAudioId", payload: audioId });
         audioRef.current.src = audioSrc;
         this.resumeAudio();
@@ -109,7 +112,7 @@ export default function PlayerProvider({ children }: PropsWithChildren) {
       },
       seeker,
     }),
-    [seeker, state.audioId],
+    [seeker, state.audioId, state.isPlaying],
   );
 
   return (
