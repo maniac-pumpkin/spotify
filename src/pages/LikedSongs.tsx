@@ -28,7 +28,7 @@ export default function LikedSongs() {
         downerText="Liked Songs"
         shape="likedMusic"
       />
-      <section className="mt-4 flex flex-col gap-4">
+      <section className="mt-4 flex flex-col gap-1">
         {likedSongs?.map((likedSong) => (
           <SongPreview type="mini" song={likedSong} key={likedSong.song_id} />
         ))}

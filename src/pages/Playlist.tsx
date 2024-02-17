@@ -27,7 +27,7 @@ export default function Playlist() {
         downerText={filterURL(name)}
         shape="playlist"
       />
-      <section className="mt-4 flex flex-col gap-4">
+      <section className="mt-4 flex flex-col gap-1">
         {songs?.map((song) => (
           <SongPreview type="mini" song={song} key={song.song_id} />
         ))}
