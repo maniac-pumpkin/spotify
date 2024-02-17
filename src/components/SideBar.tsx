@@ -51,7 +51,7 @@ function SideBar() {
           enabled={location === "/search" && true}
         />
       </div>
-      <div className="flex shrink grow flex-col gap-4 overflow-y-scroll rounded-md bg-charcoalBlack p-4">
+      <div className="relative flex shrink grow flex-col gap-4 overflow-y-scroll rounded-md bg-charcoalBlack p-4">
         <div className="flex items-center justify-between">
           <SideButton Icon={PlaylistIcon} text="Your Library" />
           {signedIn && (
@@ -77,9 +77,11 @@ function SideBar() {
             ))}
           {isLoading && <Skeleton type="playlist" quantity={4} />}
         </section>
-        {signedIn && playlists?.length === 0 && <Warning text="No playlist" />}
-        {isError && <Warning text="Something went wrong!" />}
-        {!signedIn && <Warning text="Sign in to create playlists" />}
+        {signedIn && playlists?.length === 0 && (
+          <Warning text="No playlist" center />
+        )}
+        {isError && <Warning text="Something went wrong!" center />}
+        {!signedIn && <Warning text="Sign in to create playlists" center />}
       </div>
     </section>
   );
