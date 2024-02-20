@@ -1,6 +1,6 @@
-import { useCallback } from "react";
+import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { usePlayerContext } from "../contexts/PlayerContext";
+import { usePlayerStore, audio } from "../stores/playerStore";
 import RangeSlider from "./ui/RangeSlider";
 import Skeleton from "./Skeleton";
 import Button from "./ui/Button";
@@ -19,49 +19,66 @@ import formatTime from "../utils/formatTime";
 import { Tsong } from "../services/apiSongs";
 
 function MediaController() {
-  const { currentTime, duration, playerAction } = usePlayerContext();
+  const currentTime = usePlayerStore((state) => state.currentTime);
+  const duration = usePlayerStore((state) => state.duration);
+  const seek = usePlayerStore((state) => state.seek);
+  const setDuration = usePlayerStore((state) => state.setDuration);
+
+  useEffect(() => {
+    audio.addEventListener("loadedmetadata", () => setDuration(audio.duration));
+    audio.addEventListener("timeupdate", () => seek());
+
+    return () => {
+      audio.removeEventListener("loadedmetadata", () =>
+        setDuration(audio.duration),
+      );
+      audio.removeEventListener("timeupdate", () => seek());
+    };
+  }, [seek, setDuration]);
 
   return (
-    <section className="flex w-full items-center justify-between">
-      <MCsongPreview />
-      <div className="lg:hidden">
-        <MusicController />
-      </div>
-      <div className="hidden shrink grow lg:block lg:max-w-md xl:max-w-2xl">
-        <div className="flex flex-col items-center gap-[0.2rem]">
+    <footer className="fixed bottom-0 left-0 right-0 z-10 flex h-9 w-full items-center bg-pureBlack px-3">
+      <section className="flex w-full items-center justify-between">
+        <MCsongPreview />
+        <div className="lg:hidden">
           <MusicController />
-          <div className="flex w-full items-center gap-1">
-            <span className="text-md">{formatTime(currentTime)}</span>
-            <RangeSlider
-              className="w-full"
-              onChange={(e) => playerAction.seeker(+e.currentTarget.value)}
-              value={Math.round((currentTime / duration) * 100).toString()}
-            />
-            <span className="text-md">{formatTime(duration)}</span>
+        </div>
+        <div className="hidden shrink grow lg:block lg:max-w-md xl:max-w-2xl">
+          <div className="flex flex-col items-center gap-[0.2rem]">
+            <MusicController />
+            <div className="flex w-full items-center gap-1">
+              <span className="text-md">{formatTime(currentTime)}</span>
+              <RangeSlider
+                className="w-full"
+                onChange={(e) => seek(+e.currentTarget.value)}
+                value={Math.round((currentTime / duration) * 100).toString()}
+              />
+              <span className="text-md">{formatTime(duration)}</span>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="hidden lg:block">
-        <div className="flex items-center gap-2">
-          <VolumeController />
-          <Button shape="transparent" onClick={toggleFullScreen}>
-            <FullScreenIcon className="h-2 w-2" />
-          </Button>
+        <div className="hidden lg:block">
+          <div className="flex items-center gap-2">
+            <VolumeController />
+            <Button shape="transparent" onClick={toggleFullScreen}>
+              <FullScreenIcon className="h-2 w-2" />
+            </Button>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </footer>
   );
 }
 
 function MCsongPreview() {
-  const { audioId } = usePlayerContext();
+  const audioId = usePlayerStore((state) => state.audioID);
 
   const { data: songs } = useQuery<Tsong[]>({
     queryKey: ["songs"],
     enabled: Boolean(audioId),
   });
 
-  const song = songs?.at(audioId - 1);
+  const song = songs?.at(audioId! - 1);
 
   if (!song) return <Skeleton type="songPreview_mini" quantity={1} />;
 
@@ -83,23 +100,27 @@ function MCsongPreview() {
 }
 
 function MusicController() {
-  const { audioId, isPlaying, playerAction } = usePlayerContext();
+  const audioId = usePlayerStore((state) => state.audioID);
+  const isPlaying = usePlayerStore((state) => state.isPlaying);
+  const playAudio = usePlayerStore((state) => state.playAudio);
+  const pauseAudio = usePlayerStore((state) => state.pauseAudio);
+  const resumeAudio = usePlayerStore((state) => state.resumeAudio);
 
   const { data: songs } = useQuery<Tsong[]>({
     queryKey: ["songs"],
     enabled: Boolean(audioId),
   });
 
-  const handleForward = useCallback(() => {
-    const nextSongId = audioId < 24 ? audioId + 1 : 24;
-    const songPath = songs?.at(nextSongId)?.song_path;
-    if (songPath) playerAction.playAudio(nextSongId, songPath);
-  }, [audioId, playerAction, songs]);
+  const handleForward = () => {
+    const nextSongId = audioId! < 24 ? audioId! + 1 : 24;
+    const songPath = songs?.at(nextSongId - 1)?.song_path;
+    if (songPath) playAudio(nextSongId, songPath);
+  };
 
   const handleBackward = () => {
-    const previousSongId = audioId > 1 ? audioId - 1 : 1;
-    const songPath = songs?.at(previousSongId)?.song_path;
-    if (songPath) playerAction.playAudio(previousSongId, songPath);
+    const previousSongId = audioId! > 1 ? audioId! - 1 : 1;
+    const songPath = songs?.at(previousSongId - 1)?.song_path;
+    if (songPath) playAudio(previousSongId, songPath);
   };
 
   return (
@@ -109,9 +130,7 @@ function MusicController() {
       </Button>
       <Button
         shape="circle"
-        onClick={() =>
-          isPlaying ? playerAction.pauseAudio() : playerAction.resumeAudio()
-        }
+        onClick={() => (isPlaying ? pauseAudio() : resumeAudio())}
       >
         {isPlaying && <PauseIcon className="h-3 w-3 fill-pureBlack" />}
         {!isPlaying && <PlayIcon className="h-3 w-3 fill-pureBlack" />}
@@ -124,11 +143,12 @@ function MusicController() {
 }
 
 function VolumeController() {
-  const { volume, playerAction } = usePlayerContext();
+  const volume = usePlayerStore((state) => state.volume);
+  const setVolume = usePlayerStore((state) => state.setVolume);
 
   return (
     <div className="flex items-center gap-1">
-      <Button shape="transparent" onClick={() => playerAction.setVolume(0)}>
+      <Button shape="transparent" onClick={() => setVolume(0)}>
         {volume === 0 ? (
           <VolumeOffIcon />
         ) : volume < 50 && volume > 0 ? (
@@ -141,7 +161,7 @@ function VolumeController() {
       </Button>
       <RangeSlider
         className="w-10"
-        onChange={(e) => playerAction.setVolume(+e.currentTarget.value)}
+        onChange={(e) => setVolume(+e.currentTarget.value)}
         value={volume}
       />
     </div>
