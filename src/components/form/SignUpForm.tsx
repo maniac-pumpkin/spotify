@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
-import { useFormContext } from "../../contexts/FormContext";
+import { useFormStore } from "../../stores/formStore";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import BackdropLayer from "../structural/BackdropLayer";
 import Spinner from "../ui/Spinner";
@@ -16,14 +16,14 @@ function SignUpForm() {
     inputPassword: "",
     inputConfPass: "",
   });
-  const { formAction } = useFormContext();
-  const formRef = useOutsideClick<HTMLFormElement>(formAction.hideSignUpForm);
+  const hideSignUpForm = useFormStore((state) => state.hideSignUpForm);
+  const formRef = useOutsideClick<HTMLFormElement>(hideSignUpForm);
 
   const { mutate, isPending } = useMutation({
     mutationFn: () =>
       handleSignUp(formInfo.inputUsername, formInfo.inputPassword),
     onSuccess: () => {
-      formAction.hideSignUpForm();
+      hideSignUpForm();
       toast.success("You've successfully signed up");
     },
     onError: (err) => {
@@ -95,7 +95,7 @@ function SignUpForm() {
           type="button"
           shape="transparent"
           className="absolute right-2 top-2"
-          onClick={formAction.hideSignUpForm}
+          onClick={hideSignUpForm}
         >
           <CloseIcon />
         </Button>
