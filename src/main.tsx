@@ -6,10 +6,6 @@ import App from "./App.tsx";
 import "./css/index.css";
 
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import AccountProvider from "./contexts/AccountContext.tsx";
-import FormProvider from "./contexts/FormContext.tsx";
-import PlayerProvider from "./contexts/PlayerContext.tsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,16 +18,9 @@ const queryClient = new QueryClient({
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ErrorBoundary fallback={<ErrorBoundaryPage />}>
-      <AccountProvider>
-        <FormProvider>
-          <QueryClientProvider client={queryClient}>
-            <PlayerProvider>
-              <App />
-            </PlayerProvider>
-            <ReactQueryDevtools buttonPosition="top-right" />
-          </QueryClientProvider>
-        </FormProvider>
-      </AccountProvider>
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>
     </ErrorBoundary>
   </React.StrictMode>,
 );

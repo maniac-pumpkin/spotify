@@ -2,8 +2,8 @@ import { Suspense, lazy, useEffect } from "react";
 import { Route, useLocation } from "wouter";
 import { ToastOptions, Toaster } from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
-import { useAccountContext } from "./contexts/AccountContext";
-import { usePlayerContext } from "./contexts/PlayerContext";
+import { useAuthStore } from "./stores/authStore";
+import { usePlayerStore } from "./stores/playerStore";
 import useLocalStorage from "./hooks/useLocalStorage";
 import NavigateToHome from "./components/helper/NavigateToHome";
 
@@ -21,7 +21,6 @@ import Navigation from "./components/Navigation";
 import SideBar from "./components/SideBar";
 import Header from "./components/structural/Header";
 import Main from "./components/structural/Main";
-import Footer from "./components/structural/Footer";
 
 const toastOptions: ToastOptions = {
   className: "bg-neroBlack text-pureWhite",
@@ -30,8 +29,9 @@ const toastOptions: ToastOptions = {
 };
 
 export default function App() {
-  const { signedIn, accountAction } = useAccountContext();
-  const { audioId } = usePlayerContext();
+  const signedIn = useAuthStore((state) => state.signedIn);
+  const accountSignIn = useAuthStore((state) => state.accountSignIn);
+  const audioId = usePlayerStore((state) => state.audioID);
   const { getItem } = useLocalStorage("user");
   const queryClient = useQueryClient();
   const [location] = useLocation();
@@ -40,12 +40,12 @@ export default function App() {
     const item = getItem();
     if (item) {
       queryClient.setQueryData(["user"], item);
-      accountAction.accountSignIn();
+      accountSignIn();
     }
-  }, [queryClient, accountAction, getItem]);
+  }, [queryClient, getItem, accountSignIn]);
 
   return (
-    <div className={`flex h-screen gap-2 p-2 ${audioId !== 0 && "pb-[9rem]"}`}>
+    <div className={`flex h-screen gap-2 p-2 ${audioId && "pb-[9rem]"}`}>
       <div className="hidden md:block">
         <SideBar />
       </div>
@@ -77,16 +77,8 @@ export default function App() {
           </Suspense>
         </Main>
       </section>
-      {signedIn && audioId !== 0 && (
-        <Footer>
-          <MediaController />
-        </Footer>
-      )}
-      {!signedIn && (
-        <Footer>
-          <BottomPreview />
-        </Footer>
-      )}
+      {signedIn && audioId && <MediaController />}
+      {!signedIn && <BottomPreview />}
       <Toaster toastOptions={toastOptions} />
     </div>
   );

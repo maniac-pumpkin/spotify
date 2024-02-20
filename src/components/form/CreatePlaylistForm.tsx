@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useFormContext } from "../../contexts/FormContext";
+import { useFormStore } from "../../stores/formStore";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import BackdropLayer from "../structural/BackdropLayer";
 import ComboBox from "../ui/ComboBox";
@@ -24,10 +24,10 @@ function CreatePlaylistForm() {
     playlistSongs: [],
   });
   const [playlistSearch, setPlaylistSearch] = useState("");
-  const { formAction } = useFormContext();
-  const formRef = useOutsideClick<HTMLFormElement>(
-    formAction.hideCreatePlaylistForm,
+  const hideCreatePlaylistForm = useFormStore(
+    (state) => state.hideCreatePlaylistForm,
   );
+  const formRef = useOutsideClick<HTMLFormElement>(hideCreatePlaylistForm);
   const queryClient = useQueryClient();
 
   const { data: user } = useQuery<Tuser>({
@@ -47,7 +47,7 @@ function CreatePlaylistForm() {
       queryClient.invalidateQueries({
         queryKey: ["playlists"],
       });
-      formAction.hideCreatePlaylistForm();
+      hideCreatePlaylistForm();
       toast.success("Playlist has been created");
     },
     onError: (err) => {
@@ -127,7 +127,7 @@ function CreatePlaylistForm() {
           type="button"
           shape="transparent"
           className="absolute right-2 top-2"
-          onClick={formAction.hideCreatePlaylistForm}
+          onClick={hideCreatePlaylistForm}
         >
           <CloseIcon />
         </Button>

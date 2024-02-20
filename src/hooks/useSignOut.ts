@@ -1,16 +1,19 @@
 import { useLocation } from "wouter";
-import { useAccountContext } from "../contexts/AccountContext";
+import { useAuthStore } from "../stores/authStore";
+import { usePlayerStore } from "../stores/playerStore";
 import useLocalStorage from "./useLocalStorage";
 
 function useSignOut() {
   const [, setLocation] = useLocation();
   const { removeItem } = useLocalStorage("user");
-  const { accountAction } = useAccountContext();
+  const accountSignOut = useAuthStore((state) => state.accountSignOut);
+  const resetPlayer = usePlayerStore((state) => state.resetPlayer);
 
   return () => {
     removeItem();
     setLocation("/");
-    accountAction.accountSignOut();
+    accountSignOut();
+    resetPlayer();
   };
 }
 

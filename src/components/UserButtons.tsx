@@ -1,21 +1,22 @@
 import { Link } from "wouter";
-import { useFormContext } from "../contexts/FormContext";
-import { useAccountContext } from "../contexts/AccountContext";
+import { useFormStore } from "../stores/formStore";
+import { useAuthStore } from "../stores/authStore";
 import useSignOut from "../hooks/useSignOut";
 import Button from "./ui/Button";
 import { UserIcon } from "../icons/BoxIcons";
 
 function UserButtons() {
-  const { formAction } = useFormContext();
-  const { signedIn } = useAccountContext();
+  const showSignInForm = useFormStore((state) => state.showSignInForm);
+  const showSignUpForm = useFormStore((state) => state.showSignUpForm);
+  const signedIn = useAuthStore((state) => state.signedIn);
   const signOut = useSignOut();
 
   return (
     <div className="flex gap-3">
       {!signedIn && (
         <>
-          <Button onClick={formAction.showSignUpForm}>Sign up</Button>
-          <Button onClick={formAction.showSignInForm}>Sign in</Button>
+          <Button onClick={showSignUpForm}>Sign up</Button>
+          <Button onClick={showSignInForm}>Sign in</Button>
         </>
       )}
       {signedIn && (

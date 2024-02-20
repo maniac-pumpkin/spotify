@@ -1,8 +1,8 @@
 import { FormEvent, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { useFormContext } from "../../contexts/FormContext";
-import { useAccountContext } from "../../contexts/AccountContext";
+import { useFormStore } from "../../stores/formStore";
+import { useAuthStore } from "../../stores/authStore";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import BackdropLayer from "../structural/BackdropLayer";
@@ -18,10 +18,10 @@ function SignInForm() {
     inputPassword: "",
   });
   const queryClient = useQueryClient();
-  const { formAction } = useFormContext();
-  const { accountAction } = useAccountContext();
+  const accountSignIn = useAuthStore((state) => state.accountSignIn);
   const { setItem } = useLocalStorage("user");
-  const formRef = useOutsideClick<HTMLFormElement>(formAction.hideSignInForm);
+  const hideSignInForm = useFormStore((state) => state.hideSignInForm);
+  const formRef = useOutsideClick<HTMLFormElement>(hideSignInForm);
 
   const { refetch, isLoading } = useQuery({
     queryKey: ["user"],
@@ -34,8 +34,8 @@ function SignInForm() {
           queryClient.invalidateQueries({
             queryKey: ["playlists"],
           });
-          formAction.hideSignInForm();
-          accountAction.accountSignIn();
+          hideSignInForm();
+          accountSignIn();
           toast.success("Successfully signed in");
         },
         () => {
@@ -97,7 +97,7 @@ function SignInForm() {
           type="button"
           shape="transparent"
           className="absolute right-2 top-2"
-          onClick={formAction.hideSignInForm}
+          onClick={hideSignInForm}
         >
           <CloseIcon />
         </Button>

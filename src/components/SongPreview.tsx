@@ -1,8 +1,8 @@
 import { useState, useLayoutEffect } from "react";
 import { toast } from "react-hot-toast";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useAccountContext } from "../contexts/AccountContext";
-import { usePlayerContext } from "../contexts/PlayerContext";
+import { useAuthStore } from "../stores/authStore";
+import { usePlayerStore } from "../stores/playerStore";
 import LazyImage from "./ui/LazyImage";
 import Button from "./ui/Button";
 import {
@@ -26,8 +26,10 @@ function SongPreview({ type, hidden, song }: IsongPreview) {
 
   const [hover, setHover] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
-  const { signedIn } = useAccountContext();
-  const { playerAction, isPlaying, audioId } = usePlayerContext();
+  const signedIn = useAuthStore((state) => state.signedIn);
+  const playAudio = usePlayerStore((state) => state.playAudio);
+  const isPlaying = usePlayerStore((state) => state.isPlaying);
+  const audioId = usePlayerStore((state) => state.audioID);
   const queryClient = useQueryClient();
 
   const { data: user } = useQuery<Tuser>({
@@ -63,7 +65,7 @@ function SongPreview({ type, hidden, song }: IsongPreview) {
   };
 
   const handleClick = () => {
-    if (signedIn) playerAction.playAudio(song_id, song_path);
+    if (signedIn) playAudio(song_id, song_path);
     else toast.error("You must sign in to play musics");
   };
 

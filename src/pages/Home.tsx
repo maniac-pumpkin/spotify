@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useAccountContext } from "../contexts/AccountContext";
+import { useAuthStore } from "../stores/authStore";
 import Skeleton from "../components/Skeleton";
 import LikedSongsLink from "../components/LikedSongsLink";
 import SongPreview from "../components/SongPreview";
@@ -10,7 +10,7 @@ import { Tuser } from "../services/apiUsers";
 import greeting from "../utils/greeting";
 
 export default function Home() {
-  const { signedIn } = useAccountContext();
+  const signedIn = useAuthStore((state) => state.signedIn);
 
   const { data: user } = useQuery<Tuser>({
     queryKey: ["user"],
