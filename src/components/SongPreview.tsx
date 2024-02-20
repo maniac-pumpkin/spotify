@@ -65,7 +65,6 @@ function SongPreview({ type, hidden, song }: IsongPreview) {
   };
 
   const handleClick = () => {
-    console.log(song_id);
     if (signedIn) playAudio(song_id, song_path);
     else toast.error("You must sign in to play musics");
   };
