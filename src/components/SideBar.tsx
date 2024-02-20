@@ -1,7 +1,7 @@
 import { useLocation } from "wouter";
 import { useQuery } from "@tanstack/react-query";
-import { useFormContext } from "../contexts/FormContext";
-import { useAccountContext } from "../contexts/AccountContext";
+import { useFormStore } from "../stores/formStore";
+import { useAuthStore } from "../stores/authStore";
 import PlaylistItem from "./PlaylistItem";
 import Skeleton from "./Skeleton";
 import SideButton from "./SideButton";
@@ -17,8 +17,10 @@ import { getPlaylists } from "../services/apiPlaylist";
 import { Tuser } from "../services/apiUsers";
 
 function SideBar() {
-  const { signedIn } = useAccountContext();
-  const { formAction } = useFormContext();
+  const signedIn = useAuthStore((state) => state.signedIn);
+  const showCreatePlaylistForm = useFormStore(
+    (state) => state.showCreatePlaylistForm,
+  );
   const [location] = useLocation();
 
   const { data: user } = useQuery<Tuser>({
@@ -55,10 +57,7 @@ function SideBar() {
         <div className="flex items-center justify-between">
           <SideButton Icon={PlaylistIcon} text="Your Library" />
           {signedIn && (
-            <Button
-              shape="transparent"
-              onClick={formAction.showCreatePlaylistForm}
-            >
+            <Button shape="transparent" onClick={showCreatePlaylistForm}>
               <PlusIcon className="h-3.5 w-3.5 hover:fill-hoverWhite" />
             </Button>
           )}
