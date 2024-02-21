@@ -77,7 +77,6 @@ const unLikeSong = async (userID: number, songID: number) => {
   if (!response.ok) throw new Error("Failed to unlike song");
 };
 
-// FIXME: Conflict
 export const handleLike = async (
   userID: number | undefined,
   songID: number,
