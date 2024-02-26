@@ -20,6 +20,7 @@ export const useFormStore = create<TformStore>()((set) => ({
     signUp: false,
     createPlaylist: false,
   },
+  
   showSignInForm() {
     set((state) => ({ form: { ...state.form, signIn: true } }));
   },

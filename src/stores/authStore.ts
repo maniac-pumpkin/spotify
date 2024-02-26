@@ -8,6 +8,7 @@ type TuseAuthStore = {
 
 export const useAuthStore = create<TuseAuthStore>()((set) => ({
   signedIn: false,
+  
   accountSignIn() {
     set(() => ({ signedIn: true }));
   },
