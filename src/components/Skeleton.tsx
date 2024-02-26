@@ -1,9 +1,9 @@
-type TsongPreSkeleton = {
+type Tskeleton = {
   quantity: number;
   type: "songPreview_mini" | "songPreview_normal" | "playlist";
 };
 
-function Skeleton({ type, quantity }: TsongPreSkeleton) {
+function Skeleton({ type, quantity }: Tskeleton) {
   if (type === "playlist")
     return Array.from({ length: quantity }, (_, i) => (
       <div className="flex animate-pulse items-center gap-2" key={i + 1}>
